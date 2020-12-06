@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+	x:Class="MyFirstMobileApp.MainPage"
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core">
+	<StackLayout
+		Margin="15,5,15,15"
+		Orientation="Vertical"
+		VerticalOptions="Center">
+
+		<StackLayout Orientation="Horizontal">
+			<Button
+				Clicked="OnOpenSettings"
+				CornerRadius="10"
+				HeightRequest="40"
+				Text="{Binding SettingsCommandText}"
+				WidthRequest="40" />
+			<Label
+				Padding="0"
+				FontSize="Body"
+				Text="{Binding GeneralSettings.Value}" />
+		</StackLayout>
+
+		<Grid RowSpacing="5">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto" />
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="Auto" />
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="*" />
+				<RowDefinition Height="*" />
+				<RowDefinition Height="*" />
+				<RowDefinition Height="*" />
+				<RowDefinition Height="*" />
+				<RowDefinition Height="*" />
+				<RowDefinition Height="*" />
+			</Grid.RowDefinitions>
+
+			<Button
+				Grid.Row="0"
+				Grid.Column="0"
+				Command="{Binding E1TuneUpCommand}"
+				Style="{StaticResource StringButtonStyle}"
+				Text="{Binding E1TuneUpCommandText.Value}" />
+			<Button
+				Grid.Row="1"
+				Grid.Column="0"
+				Command="{Binding BTuneUpCommand}"
+				Style="{StaticResource StringButtonStyle}"
+				Text="{Binding BTuneUpCommandText.Value}" />
+			<Button
+				Grid.Row="2"
+				Grid.Column="0"
+				Command="{Binding GTuneUpCommand}"
+				Style="{StaticResource StringButtonStyle}"
+				Text="{Binding GTuneUpCommandText.Value}" />
+			<Button
+				Grid.Row="3"
+				Grid.Column="0"
+				Command="{Binding DTuneUpCommand}"
+				Style="{StaticResource StringButtonStyle}"
+				Text="{Binding DTuneUpCommandText.Value}" />
+			<Button
+				Grid.Row="4"
+				Grid.Column="0"
+				Command="{Binding ATuneUpCommand}"
+				Style="{StaticResource StringButtonStyle}"
+				Text="{Binding ATuneUpCommandText.Value}" />
+			<Button
+				Grid.Row="5"
+				Grid.Column="0"
+				Command="{Binding ETuneUpCommand}"
+				Style="{StaticResource StringButtonStyle}"
+				Text="{Binding ETuneUpCommandText.Value}" />
+			<Button
+				Grid.Row="6"
+				Grid.Column="0"
+				Command="{Binding AllTuneUpCommand}"
+				Style="{StaticResource StringButtonStyle}"
+				Text="{Binding AllTuneUpCommandText}" />
+
+			<ContentView
+				Grid.Row="0"
+				Grid.RowSpan="7"
+				Grid.Column="1"
+				Content="{Binding FretBoardGrid}" />
+
+			<Button
+				Grid.Row="0"
+				Grid.Column="2"
+				Command="{Binding E1TuneDownCommand}"
+				Style="{StaticResource StringButtonStyle}"
+				Text="{Binding TuneDownCommandText}" />
+			<Button
+				Grid.Row="1"
+				Grid.Column="2"
+				Command="{Binding BTuneDownCommand}"
+				Style="{StaticResource StringButtonStyle}"
+				Text="{Binding TuneDownCommandText}" />
+			<Button
+				Grid.Row="2"
+				Grid.Column="2"
+				Command="{Binding GTuneDownCommand}"
+				Style="{StaticResource StringButtonStyle}"
+				Text="{Binding TuneDownCommandText}" />
+			<Button
+				Grid.Row="3"
+				Grid.Column="2"
+				Command="{Binding DTuneDownCommand}"
+				Style="{StaticResource StringButtonStyle}"
+				Text="{Binding TuneDownCommandText}" />
+			<Button
+				Grid.Row="4"
+				Grid.Column="2"
+				Command="{Binding ATuneDownCommand}"
+				Style="{StaticResource StringButtonStyle}"
+				Text="{Binding TuneDownCommandText}" />
+			<Button
+				Grid.Row="5"
+				Grid.Column="2"
+				Command="{Binding ETuneDownCommand}"
+				Style="{StaticResource StringButtonStyle}"
+				Text="{Binding TuneDownCommandText}" />
+			<Button
+				Grid.Row="6"
+				Grid.Column="2"
+				Command="{Binding AllTuneDownCommand}"
+				Style="{StaticResource StringButtonStyle}"
+				Text="{Binding AllTuneDownCommandText}" />
+		</Grid>
+		<Grid ColumnSpacing="5">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="*" />
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+			</Grid.RowDefinitions>
+			<Button
+				Grid.Row="0"
+				Grid.Column="0"
+				Clicked="OnOpenTuning"
+				CornerRadius="20"
+				Text="Tuning" />
+			<Button
+				Grid.Row="0"
+				Grid.Column="1"
+				Clicked="OnOpenKey"
+				CornerRadius="20"
+				Text="Key" />
+			<Button
+				Grid.Row="0"
+				Grid.Column="2"
+				Clicked="OnOpenScale"
+				CornerRadius="20"
+				Text="Scale" />
+		</Grid>
+	</StackLayout>
+</ContentPage>

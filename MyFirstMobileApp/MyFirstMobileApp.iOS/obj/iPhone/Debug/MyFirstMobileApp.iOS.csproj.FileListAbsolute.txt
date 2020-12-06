@@ -1,0 +1,9 @@
+C:\Users\Karsten\source\repos\MyFirstMobileApp\MyFirstMobileApp\MyFirstMobileApp.iOS\obj\iPhone\Debug\build-signature\signature
+C:\Users\Karsten\source\repos\MyFirstMobileApp\MyFirstMobileApp\MyFirstMobileApp.iOS\obj\iPhone\Debug\ibtool\_BundleResourceWithLogicalName.items
+C:\Users\Karsten\source\repos\MyFirstMobileApp\MyFirstMobileApp\MyFirstMobileApp.iOS\obj\iPhone\Debug\actool\_PartialAppManifest.items
+C:\Users\Karsten\source\repos\MyFirstMobileApp\MyFirstMobileApp\MyFirstMobileApp.iOS\obj\iPhone\Debug\actool\_BundleResourceWithLogicalName.items
+C:\Users\Karsten\source\repos\MyFirstMobileApp\MyFirstMobileApp\MyFirstMobileApp.iOS\obj\iPhone\Debug\coremlc\_PartialAppManifest.items
+C:\Users\Karsten\source\repos\MyFirstMobileApp\MyFirstMobileApp\MyFirstMobileApp.iOS\obj\iPhone\Debug\coremlc\_BundleResourceWithLogicalName.items
+C:\Users\Karsten\source\repos\MyFirstMobileApp\MyFirstMobileApp\MyFirstMobileApp.iOS\obj\iPhone\Debug\optimized\
+C:\Users\Karsten\source\repos\MyFirstMobileApp\MyFirstMobileApp\MyFirstMobileApp.iOS\obj\iPhone\Debug\MyFirstMobileApp.iOS.csprojAssemblyReference.cache
+C:\Users\Karsten\source\repos\MyFirstMobileApp\MyFirstMobileApp\MyFirstMobileApp.iOS\obj\iPhone\Debug\MyFirstMobileApp.iOS.csproj.CoreCompileInputs.cache

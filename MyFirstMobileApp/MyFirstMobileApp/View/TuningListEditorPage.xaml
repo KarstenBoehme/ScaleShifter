@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage
+	x:Class="MyFirstMobileApp.TuningListEditorPage"
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup">
+
+	<StackLayout
+		Padding="30"
+		HorizontalOptions="FillAndExpand"
+		VerticalOptions="Center">
+		<Frame
+			Padding="0"
+			BorderColor="Black"
+			CornerRadius="10">
+			<StackLayout BackgroundColor="White">
+				<Label Style="{StaticResource HeaderLabelStyle}" Text="{Binding CurrentTuning.Value}" />
+				<ListView
+					x:Name="tuningListView"
+					ItemsSource="{Binding TuningCollection}"
+					SelectedItem="{Binding SelectedTuning.Value, Mode=TwoWay}">
+					<ListView.ItemTemplate>
+						<DataTemplate>
+							<ViewCell>
+								<Grid>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="10" />
+										<ColumnDefinition Width="100" />
+										<ColumnDefinition Width="20" />
+										<ColumnDefinition Width="Auto" />
+									</Grid.ColumnDefinitions>
+									<Label
+										Grid.Column="1"
+										Text="{Binding Notes}"
+										VerticalOptions="Center" />
+									<Label
+										Grid.Column="3"
+										Text="{Binding Description}"
+										VerticalOptions="Center" />
+								</Grid>
+							</ViewCell>
+						</DataTemplate>
+					</ListView.ItemTemplate>
+				</ListView>
+
+				<Grid ColumnSpacing="3">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*" />
+						<ColumnDefinition Width="*" />
+						<ColumnDefinition Width="*" />
+					</Grid.ColumnDefinitions>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto" />
+					</Grid.RowDefinitions>
+
+					<Button
+						Grid.Row="0"
+						Grid.Column="0"
+						Clicked="OnAdd"
+						Text="Add current" />
+					<Button
+						Grid.Row="0"
+						Grid.Column="1"
+						Command="{Binding DeleteTuningCommand}"
+						IsEnabled="{Binding IsEnabledDeleteTuningCommand.Value}"
+						Text="Delete" />
+					<Button
+						Grid.Row="0"
+						Grid.Column="2"
+						Clicked="OnCancel"
+						Text="Cancel" />
+					<Button
+						Grid.Row="0"
+						Grid.Column="3"
+						Clicked="OnCancel"
+						Command="{Binding SelectTuningCommand}"
+						Text="Select" />
+				</Grid>
+			</StackLayout>
+		</Frame>
+	</StackLayout>
+</pages:PopupPage>
+

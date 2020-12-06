@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage
+	x:Class="MyFirstMobileApp.DescriptionInputPage"
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup">
+
+	<StackLayout
+		Padding="60"
+		HorizontalOptions="FillAndExpand"
+		VerticalOptions="Center">
+		<Frame
+			Padding="0"
+			BorderColor="Black"
+			CornerRadius="10">
+			<StackLayout BackgroundColor="White">
+				<Label
+					Padding="7"
+					FontSize="Medium"
+					Text="Enter tuning description: " />
+				<Entry x:Name="descriptionEntry" Text="{Binding TuningDescription.Value, Mode=TwoWay}" />
+
+				<Grid ColumnSpacing="3">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*" />
+						<ColumnDefinition Width="*" />
+					</Grid.ColumnDefinitions>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto" />
+					</Grid.RowDefinitions>
+
+					<Button
+						Grid.Row="0"
+						Grid.Column="0"
+						Clicked="OnClose"
+						Text="Cancel" />
+					<Button
+						Grid.Row="0"
+						Grid.Column="1"
+						Clicked="OnClose"
+						Command="{Binding AddTuningCommand}"
+						Text="OK" />
+				</Grid>
+			</StackLayout>
+		</Frame>
+	</StackLayout>
+</pages:PopupPage>
+

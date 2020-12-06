@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage
+	x:Class="MyFirstMobileApp.SettingsPage"
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:local="clr-namespace:MyFirstMobileApp"
+	xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup">
+	<ContentPage.Resources>
+		<Style x:Key="SettingButtonStyle" TargetType="Button">
+			<Setter Property="CornerRadius" Value="0" />
+			<Setter Property="HeightRequest" Value="45" />
+			<Setter Property="BackgroundColor" Value="White" />
+		</Style>
+		<ResourceDictionary>
+			<local:ComparisonConverter x:Key="ComparisonConverter" />
+		</ResourceDictionary>
+	</ContentPage.Resources>
+
+	<StackLayout
+		Padding="30"
+		HorizontalOptions="FillAndExpand"
+		VerticalOptions="FillAndExpand">
+		<Frame
+			Padding="0"
+			BorderColor="Black"
+			CornerRadius="10">
+			<StackLayout BackgroundColor="White">
+				<Label Style="{StaticResource HeaderLabelStyle}" Text="Settings" />
+				<ScrollView Padding="10,0,10,0">
+					<StackLayout BackgroundColor="White">
+						<Label Text="display notes:" />
+						<RadioButton
+							GroupName="displayNotes"
+							IsChecked="{Binding Path=DisplayingSettings.Value, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static local:KeyDisplayingSettings.NONE}}"
+							Text="none" />
+						<RadioButton
+							GroupName="displayNotes"
+							IsChecked="{Binding Path=DisplayingSettings.Value, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static local:KeyDisplayingSettings.SCALE}}"
+							Text="on scale" />
+						<RadioButton
+							GroupName="displayNotes"
+							IsChecked="{Binding Path=DisplayingSettings.Value, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static local:KeyDisplayingSettings.ALL}}"
+							Text="all" />
+
+						<Label Text="semitone:" />
+						<RadioButton
+							GroupName="semitone"
+							IsChecked="{Binding Path=SemiSteps.Value, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static local:SemiStepSettings.SHARP}}"
+							Text="♯" />
+						<RadioButton
+							GroupName="semitone"
+							IsChecked="{Binding Path=SemiSteps.Value, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static local:SemiStepSettings.FLAT}}"
+							Text="♭" />
+
+						<Label Text="capo fret position:" />
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto" />
+								<ColumnDefinition Width="40" />
+								<ColumnDefinition Width="Auto" />
+							</Grid.ColumnDefinitions>
+							<Button
+								Grid.Column="0"
+								Command="{Binding CapoMinusCommand}"
+								Style="{StaticResource UpDownButtonStyle}"
+								Text="-" />
+							<Label
+								Grid.Column="1"
+								HorizontalTextAlignment="Center"
+								Text="{Binding CapoPosition.Value}"
+								VerticalOptions="Center" />
+							<Button
+								Grid.Column="2"
+								Command="{Binding CapoPlusCommand}"
+								Style="{StaticResource UpDownButtonStyle}"
+								Text="+" />
+						</Grid>
+					</StackLayout>
+				</ScrollView>
+
+				<Grid ColumnSpacing="3">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*" />
+						<ColumnDefinition Width="*" />
+					</Grid.ColumnDefinitions>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto" />
+					</Grid.RowDefinitions>
+
+					<Button
+						Grid.Row="0"
+						Grid.Column="0"
+						Clicked="OnClose"
+						Command="{Binding CancelCommand}"
+						Text="Cancel" />
+					<Button
+						Grid.Row="0"
+						Grid.Column="1"
+						Clicked="OnClose"
+						Command="{Binding ConfirmCommand}"
+						Text="Confirm" />
+				</Grid>
+			</StackLayout>
+		</Frame>
+	</StackLayout>
+</pages:PopupPage>
+

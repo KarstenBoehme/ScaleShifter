@@ -56,5 +56,7 @@ namespace MyFirstMobileApp
             FretBoardGrid.UpdateCapoSetup(FretBoard.CapoPosition);
             UpdateFretboardUIGrid();
         }
+
+        //test
     }
 }

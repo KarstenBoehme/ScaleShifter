@@ -1,0 +1,2 @@
+testinhalt für git-tutorial git add CommitTest.txt git commit -m CommitTest.txt zu repository hinzugefügt
+test content for git tutorial git add CommitTest.txt git commit -m added CommitTest.txt to the repo

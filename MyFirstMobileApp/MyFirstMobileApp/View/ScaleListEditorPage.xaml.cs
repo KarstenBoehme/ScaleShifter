@@ -1,0 +1,20 @@
+﻿using Rg.Plugins.Popup.Services;
+using System;
+using Xamarin.Forms.Xaml;
+
+namespace MyFirstMobileApp
+{
+	[XamlCompilation(XamlCompilationOptions.Compile)]
+	public partial class ScaleListEditorPage : Rg.Plugins.Popup.Pages.PopupPage
+	{
+		public ScaleListEditorPage()
+		{
+			InitializeComponent();
+		}
+
+		private async void OnCancel(object sender, EventArgs e)
+		{
+			await PopupNavigation.Instance.PopAsync();
+		}
+	}
+}

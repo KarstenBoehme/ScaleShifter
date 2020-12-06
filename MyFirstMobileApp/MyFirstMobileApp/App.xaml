@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application
+	x:Class="MyFirstMobileApp.App"
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+	<Application.Resources>
+		<Style TargetType="Label">
+			<Setter Property="FontFamily" Value="sans-serif" />
+			<Setter Property="TextColor" Value="Black" />
+		</Style>
+		<Style TargetType="Button">
+			<Setter Property="CornerRadius" Value="0" />
+			<Setter Property="TextColor" Value="White" />
+			<Setter Property="HeightRequest" Value="40" />
+			<Setter Property="BackgroundColor" Value="#2E8364" />
+		</Style>
+		<Style x:Key="HeaderLabelStyle" TargetType="Label">
+			<Setter Property="FontSize" Value="Body" />
+			<Setter Property="Padding" Value="7" />
+			<Setter Property="TextColor" Value="White" />
+			<Setter Property="BackgroundColor" Value="#2E8364" />
+		</Style>
+		<Style x:Key="StringButtonStyle" TargetType="Button">
+			<Setter Property="FontSize" Value="Micro" />
+			<Setter Property="Padding" Value="0" />
+			<Setter Property="WidthRequest" Value="40" />
+			<Setter Property="HeightRequest" Value="45" />
+			<Setter Property="CornerRadius" Value="20" />
+			<Setter Property="TextColor" Value="White" />
+			<Setter Property="BackgroundColor" Value="#2E8364" />
+		</Style>
+		<Style x:Key="UpDownButtonStyle" TargetType="Button">
+			<Setter Property="FontSize" Value="Default" />
+			<Setter Property="Padding" Value="0" />
+			<Setter Property="WidthRequest" Value="35" />
+			<Setter Property="HeightRequest" Value="35" />
+			<Setter Property="CornerRadius" Value="20" />
+			<Setter Property="TextColor" Value="Black" />
+			<Setter Property="BackgroundColor" Value="LightGray" />
+		</Style>
+	</Application.Resources>
+</Application>

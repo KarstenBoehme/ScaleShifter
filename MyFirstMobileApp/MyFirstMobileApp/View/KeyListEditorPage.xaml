@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage
+	x:Class="MyFirstMobileApp.KeyListEditorPage"
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+	xmlns:utils="clr-namespace:MyFirstMobileApp">
+
+	<ContentPage.Resources>
+		<ResourceDictionary>
+			<utils:KeyDescriptionConverter x:Key="EnumConverter" />
+		</ResourceDictionary>
+	</ContentPage.Resources>
+
+	<StackLayout
+		Padding="30"
+		HorizontalOptions="FillAndExpand"
+		VerticalOptions="Center">
+		<Frame
+			Padding="0"
+			BorderColor="Black"
+			CornerRadius="10">
+			<StackLayout BackgroundColor="White">
+				<Label Style="{StaticResource HeaderLabelStyle}" Text="{Binding CurrentKey.Value}" />
+				<ListView
+					x:Name="keyListView"
+					ItemsSource="{Binding KeyCollection}"
+					SelectedItem="{Binding SelectedKey.Value, Mode=TwoWay}">
+					<ListView.ItemTemplate>
+						<DataTemplate>
+							<TextCell Text="{Binding ., Converter={StaticResource EnumConverter}}" TextColor="Black"/>
+						</DataTemplate>
+					</ListView.ItemTemplate>
+				</ListView>
+
+				<Grid ColumnSpacing="3">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*" />
+						<ColumnDefinition Width="*" />
+					</Grid.ColumnDefinitions>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto" />
+					</Grid.RowDefinitions>
+
+					<Button
+						Grid.Row="0"
+						Grid.Column="0"
+						Clicked="OnCancel"
+						Text="Cancel" />
+					<Button
+						Grid.Row="0"
+						Grid.Column="1"
+						Clicked="OnCancel"
+						Command="{Binding SelectKeyCommand}"
+						Text="Select" />
+				</Grid>
+			</StackLayout>
+		</Frame>
+	</StackLayout>
+</pages:PopupPage>
+

@@ -1,0 +1,27 @@
+# Numerous always-ignore extensions
+*.diff
+*.err
+*.orig
+*.log
+*.rej
+*.swo
+*.swp
+*.vi
+*~
+*.sass-cache
+
+# OS or Editor folders
+.vs
+.iOS
+.project
+.settings
+.tmproj
+nbproject
+Thumbs.db
+
+# Brunch folder for temporary files.
+tmp/
+
+# Brunch output folder.
+bin/
+obj/

@@ -519,13 +519,6 @@ C:\Users\Karsten\source\repos\MyFirstMobileApp\MyFirstMobileApp\MyFirstMobileApp
 C:\Users\Karsten\source\repos\MyFirstMobileApp\MyFirstMobileApp\MyFirstMobileApp.Android\obj\Debug\90\android\assets\ScaleShifter.dll
 C:\Users\Karsten\source\repos\MyFirstMobileApp\MyFirstMobileApp\MyFirstMobileApp.Android\obj\Debug\90\android\assets\ScaleShifter.pdb
 C:\Users\Karsten\source\repos\MyFirstMobileApp\MyFirstMobileApp\MyFirstMobileApp.Android\obj\Debug\90\android\src\crc64b93ccb68ba472af0\MainActivity.java
-C:\Users\Karsten\source\repos\MyFirstMobileApp\MyFirstMobileApp\MyFirstMobileApp.Android\obj\Debug\90\lp\17\jl\files.cache
-C:\Users\Karsten\source\repos\MyFirstMobileApp\MyFirstMobileApp\MyFirstMobileApp.Android\obj\Debug\90\lp\21\jl\files.cache
-C:\Users\Karsten\source\repos\MyFirstMobileApp\MyFirstMobileApp\MyFirstMobileApp.Android\obj\Debug\90\lp\23\jl\files.cache
-C:\Users\Karsten\source\repos\MyFirstMobileApp\MyFirstMobileApp\MyFirstMobileApp.Android\obj\Debug\90\lp\30\jl\files.cache
-C:\Users\Karsten\source\repos\MyFirstMobileApp\MyFirstMobileApp\MyFirstMobileApp.Android\obj\Debug\90\lp\34\jl\files.cache
-C:\Users\Karsten\source\repos\MyFirstMobileApp\MyFirstMobileApp\MyFirstMobileApp.Android\obj\Debug\90\lp\38\jl\files.cache
-C:\Users\Karsten\source\repos\MyFirstMobileApp\MyFirstMobileApp\MyFirstMobileApp.Android\obj\Debug\90\lp\43\jl\files.cache
 C:\Users\Karsten\source\repos\MyFirstMobileApp\MyFirstMobileApp\MyFirstMobileApp.Android\obj\Debug\90\XamlC.stamp
 C:\Users\Karsten\source\repos\MyFirstMobileApp\MyFirstMobileApp\MyFirstMobileApp.Android\obj\Debug\90\lp\15\jl\files.cache
 C:\Users\Karsten\source\repos\MyFirstMobileApp\MyFirstMobileApp\MyFirstMobileApp.Android\obj\Debug\90\lp\20\jl\files.cache

@@ -59,6 +59,7 @@ namespace MyFirstMobileApp
 				DisplayingSettings.Value = Settings.KeyDisplayingSettings;
 				SemiSteps.Value = Settings.SemiStepSettings;
 				CapoPosition.Value = ModelSubject.Value.FretBoard.CapoPosition;
+
 			});
 		}
 	}

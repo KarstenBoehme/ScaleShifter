@@ -144,7 +144,7 @@ namespace MyFirstMobileApp
 				.Subscribe(t =>
 				{
 					SelectedTuning.Value = t;
-					ModelSubject.Value.SetTuning(t);
+					ModelSubject.Value.FretBoard.SetTuning(t);
 					ModelSubject.Value.UpdateFretboardUIGrid();
 				});
 
@@ -154,7 +154,7 @@ namespace MyFirstMobileApp
 				.WithLatestFrom(SelectedKey, (s, k) => (s, k))
 				.Subscribe(tuple =>
 				{
-					ModelSubject.Value.SetScale(tuple.s, tuple.k);
+					ModelSubject.Value.FretBoard.SetScale(tuple.s, tuple.k);
 					ModelSubject.Value.UpdateFretboardUIGrid();
 				});
 
@@ -164,7 +164,7 @@ namespace MyFirstMobileApp
 				.WithLatestFrom(SelectedKey, (s, k) => (s, k))
 				.Subscribe(tuple =>
 				{
-					ModelSubject.Value.SetScale(tuple.s, tuple.k);
+					ModelSubject.Value.FretBoard.SetScale(tuple.s, tuple.k);
 					ModelSubject.Value.UpdateFretboardUIGrid();
 				});
 
@@ -213,7 +213,7 @@ namespace MyFirstMobileApp
 
 		private string GetDescription(Model model)
 		{
-			string tuning = $"Tuning: {model.FretBoard.GetTuningDescription()}";
+			string tuning = $"Tuning: {model.FretBoard.Tuning.Notes}";
 			string capo = model.FretBoard.CapoPosition != 0 ? $" | Capo: {model.FretBoard.CapoPosition}" : string.Empty;
 			string key = $"Key: {model.FretBoard.Key.GetKeyDiscription()} | ";
 			string scale = $"Scale: {model.FretBoard.Scale.Name}";

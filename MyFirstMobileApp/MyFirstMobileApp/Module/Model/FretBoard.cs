@@ -17,11 +17,11 @@ namespace MyFirstMobileApp
 
 	public class FretBoard
 	{
-		public Tuning Tuning { get; set; }
-		public Scale Scale { get; set; }
-		public Key Key { get; set; }
+		public Tuning Tuning { get; private set; }
+		public Scale Scale { get; private set; }
+		public Key Key { get; private set; }
 		public int CapoPosition { get; set; }
-		public Dictionary<GuitarString, List<FretBoardPosition>> FretBoardLayout { get; set; }
+		public Dictionary<GuitarString, List<FretBoardPosition>> FretBoardLayout { get; private set; }
 
 		public FretBoard()
 		{		
@@ -37,9 +37,11 @@ namespace MyFirstMobileApp
 			Keys.ListOfKeys.ForEach(e => FretBoardLayout[GuitarString.A].Add(new FretBoardPosition(e)));
 			Keys.ListOfKeys.ForEach(e => FretBoardLayout[GuitarString.E].Add(new FretBoardPosition(e)));
 		}
-
-		public void UpdateScale()
+		public void SetScale(Scale scale, Key key)
 		{
+			this.Scale = scale;
+			this.Key = key;
+
 			foreach (GuitarString stringKey in FretBoardLayout.Keys)
 			{
 				foreach (FretBoardPosition fretBoardPosition in FretBoardLayout[stringKey])
@@ -53,19 +55,10 @@ namespace MyFirstMobileApp
 			}
 		}
 
-		public void UpdateTuning(Tuning tuning)
+		public void SetTuning(Tuning tuning)
 		{
-			Tuning = (Tuning)tuning.Clone();
-			TuneFretboard(tuning);
-		}
+			this.Tuning = (Tuning)tuning.Clone();
 
-		public void RefreshTuning()
-		{
-			TuneFretboard(Tuning);
-		}
-
-		private void TuneFretboard(Tuning tuning)
-		{
 			foreach (GuitarString stringKey in FretBoardLayout.Keys)
 			{
 				Key tuningKey = tuning.ToDict()[stringKey];
@@ -77,7 +70,7 @@ namespace MyFirstMobileApp
 				}
 			}
 		}
-
+	
 		public void TuneUp(GuitarString guitarString)
 		{
 			FretBoardPosition lastPos = this.FretBoardLayout[guitarString].Last();
@@ -93,7 +86,6 @@ namespace MyFirstMobileApp
 			this.FretBoardLayout[guitarString].Add(firstPos);
 			TuneString(guitarString);
 		}
-
 		private void TuneString(GuitarString guitarString)
 		{
 			switch (guitarString)
@@ -119,18 +111,6 @@ namespace MyFirstMobileApp
 				default:
 					throw new ArgumentException($"unhandled enum {typeof(GuitarString)}");
 			}
-		}
-
-		public string GetTuningDescription()
-		{
-			var tuningDict = Tuning.ToDict();
-
-			return tuningDict[GuitarString.E].GetKeyDiscription() +
-					tuningDict[GuitarString.A].GetKeyDiscription() +
-					tuningDict[GuitarString.D].GetKeyDiscription() +
-					tuningDict[GuitarString.G].GetKeyDiscription() +
-					tuningDict[GuitarString.B].GetKeyDiscription() +
-					tuningDict[GuitarString.E1].GetKeyDiscription();
 		}
 
 		public string GetStepsFromStandard(GuitarString guitarString)

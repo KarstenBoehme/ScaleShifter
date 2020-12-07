@@ -8,7 +8,12 @@ namespace MyFirstMobileApp
 {
 	public static class AppPreferences
 	{
-		private static string TuningPreference => "Tuning";
+        public static Tuning Tuning { get; private set; }
+        public static Scale Scale { get; private set; }
+        public static Key Key { get; private set; }
+        public static int CapoPosition { get; private set; }
+
+        private static string TuningPreference => "Tuning";
         private static int tuningIndex;
 
         private static string CapoPreference => "Capo";
@@ -38,16 +43,14 @@ namespace MyFirstMobileApp
             Tuning tuning = model.DataBaseHandler.TuningCollection.Any(t => t.Index == tuningIndex) ?
                                      model.DataBaseHandler.TuningCollection.Single(t => t.Index == tuningIndex) :
                                      model.DataBaseHandler.TuningCollection.Single(t => t.Description.Contains("Standard"));
-            model.FretBoard.Tuning = (Tuning)tuning.Clone();
-
             key = Preferences.Get(KeyPreference, Key.C.ToString());
-            model.FretBoard.Key = Keys.ListOfKeys.Single(k => k.ToString() == key);
-
             scaleIndex = Preferences.Get(ScalePreference, 1);
-            model.FretBoard.Scale = model.DataBaseHandler.ScaleCollection.Single(s => s.Index == scaleIndex);
-
             capoPos = Preferences.Get(CapoPreference, 0);
-            model.FretBoard.CapoPosition = capoPos;
+
+            Tuning = (Tuning)tuning.Clone();
+            Scale = model.DataBaseHandler.ScaleCollection.Single(s => s.Index == scaleIndex);
+            Key = Keys.ListOfKeys.Single(k => k.ToString() == key);
+            CapoPosition = capoPos;
         }
 
         public static void Save(Model model)

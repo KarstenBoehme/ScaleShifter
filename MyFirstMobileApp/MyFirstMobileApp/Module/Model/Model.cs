@@ -18,22 +18,10 @@ namespace MyFirstMobileApp
             ModelSubject = new BehaviorSubject<Model>(this);
 
             AppPreferences.Load(this);
-            FretBoard.UpdateScale();
-            FretBoard.UpdateTuning(FretBoard.Tuning);
+            FretBoard.SetScale(AppPreferences.Scale, AppPreferences.Key);
+            FretBoard.SetTuning(AppPreferences.Tuning);
             UpdateFretboardUIGrid();
             FretBoardGrid.UpdateCapoSetup(FretBoard.CapoPosition);
-        }
-
-		public void SetScale(Scale scale, Key key)
-        {
-            FretBoard.Scale = scale;
-            FretBoard.Key = key;
-            FretBoard.UpdateScale();
-        }
-
-        public void SetTuning(Tuning tuning)
-        {
-            FretBoard.UpdateTuning(tuning);
         }
 
         public void UpdateFretboardUIGrid()
@@ -51,12 +39,10 @@ namespace MyFirstMobileApp
 
         public void RefreshModel()
         {
-            FretBoard.UpdateScale();
-            FretBoard.RefreshTuning();
+            FretBoard.SetScale(FretBoard.Scale, FretBoard.Key);
+            FretBoard.SetTuning(FretBoard.Tuning);
             FretBoardGrid.UpdateCapoSetup(FretBoard.CapoPosition);
             UpdateFretboardUIGrid();
         }
-
-        //test
     }
 }

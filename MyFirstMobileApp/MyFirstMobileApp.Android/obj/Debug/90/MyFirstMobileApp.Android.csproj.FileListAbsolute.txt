@@ -527,3 +527,10 @@ C:\Users\Karsten\source\repos\MyFirstMobileApp\MyFirstMobileApp\MyFirstMobileApp
 C:\Users\Karsten\source\repos\MyFirstMobileApp\MyFirstMobileApp\MyFirstMobileApp.Android\obj\Debug\90\lp\38\jl\files.cache
 C:\Users\Karsten\source\repos\MyFirstMobileApp\MyFirstMobileApp\MyFirstMobileApp.Android\obj\Debug\90\lp\43\jl\files.cache
 C:\Users\Karsten\source\repos\MyFirstMobileApp\MyFirstMobileApp\MyFirstMobileApp.Android\obj\Debug\90\XamlC.stamp
+C:\Users\Karsten\source\repos\MyFirstMobileApp\MyFirstMobileApp\MyFirstMobileApp.Android\obj\Debug\90\lp\15\jl\files.cache
+C:\Users\Karsten\source\repos\MyFirstMobileApp\MyFirstMobileApp\MyFirstMobileApp.Android\obj\Debug\90\lp\20\jl\files.cache
+C:\Users\Karsten\source\repos\MyFirstMobileApp\MyFirstMobileApp\MyFirstMobileApp.Android\obj\Debug\90\lp\22\jl\files.cache
+C:\Users\Karsten\source\repos\MyFirstMobileApp\MyFirstMobileApp\MyFirstMobileApp.Android\obj\Debug\90\lp\29\jl\files.cache
+C:\Users\Karsten\source\repos\MyFirstMobileApp\MyFirstMobileApp\MyFirstMobileApp.Android\obj\Debug\90\lp\33\jl\files.cache
+C:\Users\Karsten\source\repos\MyFirstMobileApp\MyFirstMobileApp\MyFirstMobileApp.Android\obj\Debug\90\lp\35\jl\files.cache
+C:\Users\Karsten\source\repos\MyFirstMobileApp\MyFirstMobileApp\MyFirstMobileApp.Android\obj\Debug\90\lp\41\jl\files.cache

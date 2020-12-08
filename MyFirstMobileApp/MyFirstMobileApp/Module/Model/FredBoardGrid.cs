@@ -12,7 +12,7 @@ namespace MyFirstMobileApp
 		private Frame[][] dataArray = new Frame[7][];
 		public Grid UIGrid { get; set; }
 
-		public FredBoardGrid(FretBoard fretBoard)
+		public FredBoardGrid(Dictionary<GuitarString, List<FretBoardPosition>> fretBoardLayout)
 		{
 			UIGrid = new Grid();
 
@@ -24,7 +24,7 @@ namespace MyFirstMobileApp
 			dataArray[5] = new Frame[13];
 			dataArray[6] = new Frame[13];
 
-			FillDataArray(fretBoard.FretBoardLayout);
+			FillDataArray(fretBoardLayout);
 			FillFretBoardGrid();
 		}
 		private void FillDataArray(Dictionary<GuitarString, List<FretBoardPosition>> fretBoardLayout)
@@ -68,7 +68,7 @@ namespace MyFirstMobileApp
 			}
 		}
 
-		public void FillFretBoardGrid()
+		private void FillFretBoardGrid()
 		{	
 			UIGrid.Children.Add(GetImage());
 

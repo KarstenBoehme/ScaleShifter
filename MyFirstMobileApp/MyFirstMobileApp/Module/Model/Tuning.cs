@@ -73,7 +73,6 @@ namespace MyFirstMobileApp
 			return fullDescription;
 		}
 
-
 		public bool IsLocked()
 		{
 			return locked == 1;

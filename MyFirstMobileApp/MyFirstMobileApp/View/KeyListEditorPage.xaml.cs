@@ -13,9 +13,10 @@ namespace MyFirstMobileApp
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class KeyListEditorPage : Rg.Plugins.Popup.Pages.PopupPage
 	{
-		public KeyListEditorPage()
+		public KeyListEditorPage(Model model)
 		{
 			InitializeComponent();
+			BindingContext = new KeyListEditorViewModel(model);
 		}
 
 		private async void OnCancel(object sender, EventArgs e)

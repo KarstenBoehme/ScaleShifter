@@ -13,19 +13,12 @@ namespace MyFirstMobileApp
 	{
 		private BehaviorSubject<Model> ModelSubject;
 		public Grid FretBoardGrid => ModelSubject.Value.FretBoardGrid.UIGrid;
-
-		public ReactiveProperty<Key> SelectedKey { get; }
+	
 		public ReactiveProperty<Scale> SelectedScale { get; }
 		public ReactiveProperty<Tuning> SelectedTuning { get; }
 		public ReactiveProperty<string> TuningDescription { get; }
 
-		public List<Key> KeyCollection
-		{
-			get
-			{
-				return Keys.ListOfKeys;
-			}
-		}
+		
 		public ObservableCollection<Scale> ScaleCollection
 		{
 			get
@@ -60,7 +53,7 @@ namespace MyFirstMobileApp
 		public ReactiveCommand AddTuningCommand { get; }
 		public ReactiveCommand DeleteTuningCommand { get; }
 		public ReactiveCommand SelectTuningCommand { get; }
-		public ReactiveCommand SelectKeyCommand { get; }
+
 		public ReactiveCommand SelectScaleCommand { get; }
 
 		public ReactiveProperty<bool> IsEnabledDeleteTuningCommand { get; }
@@ -77,7 +70,6 @@ namespace MyFirstMobileApp
 		public string SettingsCommandText => "...";
 
 		public ReactiveProperty<string> CurrentTuning { get; }
-		public ReactiveProperty<string> CurrentKey { get; }
 		public ReactiveProperty<string> CurrentScale { get; }
 		public ReactiveProperty<string> GeneralSettings { get; }
 
@@ -85,7 +77,6 @@ namespace MyFirstMobileApp
 		{
 			ModelSubject = model.ModelSubject;
 
-			SelectedKey = new ReactiveProperty<Key>(ModelSubject.Value.FretBoard.Key);
 			SelectedScale = new ReactiveProperty<Scale>(ModelSubject.Value.FretBoard.Scale);
 			SelectedTuning = new ReactiveProperty<Tuning>();
 			TuningDescription = new ReactiveProperty<string>(string.Empty);
@@ -151,20 +142,10 @@ namespace MyFirstMobileApp
 			SelectScaleCommand = new ReactiveCommand();
 			SelectScaleCommand
 				.WithLatestFrom(SelectedScale, (_, s) => s)
-				.WithLatestFrom(SelectedKey, (s, k) => (s, k))
+				.WithLatestFrom(ModelSubject, (s, m) => (s, m))
 				.Subscribe(tuple =>
 				{
-					ModelSubject.Value.FretBoard.SetScale(tuple.s, tuple.k);
-					ModelSubject.Value.UpdateFretboardUIGrid();
-				});
-
-			SelectKeyCommand = new ReactiveCommand();
-			SelectKeyCommand
-				.WithLatestFrom(SelectedScale, (_, s) => s)
-				.WithLatestFrom(SelectedKey, (s, k) => (s, k))
-				.Subscribe(tuple =>
-				{
-					ModelSubject.Value.FretBoard.SetScale(tuple.s, tuple.k);
+					ModelSubject.Value.FretBoard.SetScale(tuple.s, tuple.m.FretBoard.Key);
 					ModelSubject.Value.UpdateFretboardUIGrid();
 				});
 
@@ -201,10 +182,6 @@ namespace MyFirstMobileApp
 			CurrentTuning = new ReactiveProperty<string>();
 			ModelSubject.Subscribe(m => CurrentTuning.Value =
 				"Current Tuning: " + m.FretBoard.Tuning.Notes);
-
-			CurrentKey = new ReactiveProperty<string>();
-			ModelSubject.Subscribe(m => CurrentKey.Value =
-				"Current Key: " + m.FretBoard.Key.GetKeyDiscription());
 
 			CurrentScale = new ReactiveProperty<string>();
 			ModelSubject.Subscribe(m => CurrentScale.Value =

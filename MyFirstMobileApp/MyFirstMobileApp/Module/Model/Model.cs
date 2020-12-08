@@ -14,7 +14,7 @@ namespace MyFirstMobileApp
         {
             DataBaseHandler = new DataBaseHandler();
             FretBoard = new FretBoard();
-			FretBoardGrid = new FredBoardGrid(FretBoard);
+			FretBoardGrid = new FredBoardGrid(FretBoard.FretBoardLayout);
             ModelSubject = new BehaviorSubject<Model>(this);
 
             AppPreferences.Load(this);

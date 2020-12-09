@@ -1,4 +1,5 @@
 FormsViewGroup
+MyFirstMobileApp
 ReactiveUI
 Rg.Plugins.Popup
 SQLitePCLRaw.lib.e_sqlite3.android
@@ -42,4 +43,3 @@ Xamarin.Android.Support.ViewPager
 Xamarin.Essentials
 Xamarin.Forms.Platform.Android
 Xamarin.Forms.Platform
-MyFirstMobileApp

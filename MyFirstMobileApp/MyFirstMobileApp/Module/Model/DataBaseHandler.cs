@@ -29,7 +29,7 @@ namespace MyFirstMobileApp
 		{
 			TuningDataBase = new DataBase<Tuning>("SQTunings.db", SQLiteOpenFlags.ReadWrite);
 			var tunings = Task.Run(async () => await TuningDataBase.GetItemsAsync()).Result;
-			return new ObservableCollection<Tuning>(tunings.OrderBy(s => s.Description));
+			return new ObservableCollection<Tuning>(tunings.OrderBy(s => s.Notes));
 		}
 
 		public void AddTuningToDB(Tuning newTuning)

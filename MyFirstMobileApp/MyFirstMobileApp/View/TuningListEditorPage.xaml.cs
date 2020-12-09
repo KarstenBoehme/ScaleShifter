@@ -13,12 +13,16 @@ namespace MyFirstMobileApp
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class TuningListEditorPage : Rg.Plugins.Popup.Pages.PopupPage
 	{
+		private TuningListEditorViewModel tuningListEditorViewModel;
 		private DescriptionInputPage _DiscriptionInputPage;
 		public TuningListEditorPage(Model model)
 		{
 			InitializeComponent();
-			BindingContext = new TuningListEditorViewModel(model);
+			tuningListEditorViewModel = new TuningListEditorViewModel(model);
+			BindingContext = tuningListEditorViewModel;
+
 			_DiscriptionInputPage = new DescriptionInputPage();
+			_DiscriptionInputPage.BindingContext = tuningListEditorViewModel;
 		}
 
 		private async void OnAdd(object sender, EventArgs e)

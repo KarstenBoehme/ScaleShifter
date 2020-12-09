@@ -28,7 +28,7 @@
 					SelectedItem="{Binding SelectedKey.Value, Mode=TwoWay}">
 					<ListView.ItemTemplate>
 						<DataTemplate>
-							<TextCell Text="{Binding ., Converter={StaticResource EnumConverter}}" TextColor="Black"/>
+							<TextCell Text="{Binding ., Converter={StaticResource EnumConverter}}" TextColor="Black" />
 						</DataTemplate>
 					</ListView.ItemTemplate>
 				</ListView>

@@ -42,7 +42,7 @@ namespace MyFirstMobileApp
             tuningIndex = Preferences.Get(TuningPreference, 1);
             Tuning tuning = model.DataBaseHandler.TuningCollection.Any(t => t.Index == tuningIndex) ?
                                      model.DataBaseHandler.TuningCollection.Single(t => t.Index == tuningIndex) :
-                                     model.DataBaseHandler.TuningCollection.Single(t => t.Description.Contains("Standard"));
+                                     model.DataBaseHandler.TuningCollection.Where(t => t.Notes.Equals(Constants.StandardTuningNotes)).First();
             key = Preferences.Get(KeyPreference, Key.C.ToString());
             scaleIndex = Preferences.Get(ScalePreference, 1);
             capoPos = Preferences.Get(CapoPreference, 0);

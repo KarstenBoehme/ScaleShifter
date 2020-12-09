@@ -11,5 +11,7 @@ namespace MyFirstMobileApp
 
 		public static int NumberOfStrings = 6;
 		public static int NumberOfNotes = 12;
+
+		public static string StandardTuningNotes = "EADGBE";
 	}
 }

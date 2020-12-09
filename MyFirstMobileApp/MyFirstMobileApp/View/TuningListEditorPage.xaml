@@ -57,7 +57,7 @@
 						Grid.Row="0"
 						Grid.Column="0"
 						Clicked="OnAdd"
-						Text="Add current" />
+						Text="Save current" />
 					<Button
 						Grid.Row="0"
 						Grid.Column="1"

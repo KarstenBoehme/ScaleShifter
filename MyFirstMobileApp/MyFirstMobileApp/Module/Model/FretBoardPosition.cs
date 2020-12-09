@@ -9,6 +9,7 @@ namespace MyFirstMobileApp
     public class FretBoardPosition
     {
         public Key Key { get; set; }
+        public Interval Interval { get; set; }
         public bool IsScaleNote { get; set; }
         public bool IsRootNote { get; set; }
         public FretBoardPosition(Key key)

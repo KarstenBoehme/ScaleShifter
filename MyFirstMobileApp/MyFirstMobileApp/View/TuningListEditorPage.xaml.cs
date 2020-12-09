@@ -14,9 +14,10 @@ namespace MyFirstMobileApp
 	public partial class TuningListEditorPage : Rg.Plugins.Popup.Pages.PopupPage
 	{
 		private DescriptionInputPage _DiscriptionInputPage;
-		public TuningListEditorPage()
+		public TuningListEditorPage(Model model)
 		{
 			InitializeComponent();
+			BindingContext = new TuningListEditorViewModel(model);
 			_DiscriptionInputPage = new DescriptionInputPage();
 		}
 

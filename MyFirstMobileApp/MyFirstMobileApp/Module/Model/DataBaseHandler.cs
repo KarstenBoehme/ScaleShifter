@@ -7,8 +7,9 @@ namespace MyFirstMobileApp
 {
 	public class DataBaseHandler
 	{
-		public DataBase<Scale> ScaleDataBase;
-		public DataBase<Tuning> TuningDataBase;
+		private DataBase<Scale> ScaleDataBase;
+		private DataBase<Tuning> TuningDataBase;
+
 		public ObservableCollection<Scale> ScaleCollection;
 		public ObservableCollection<Tuning> TuningCollection;
 		public DataBaseHandler()

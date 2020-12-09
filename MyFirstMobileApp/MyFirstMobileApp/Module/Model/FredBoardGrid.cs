@@ -10,7 +10,7 @@ namespace MyFirstMobileApp
 	public class FredBoardGrid
 	{
 		private Frame[][] dataArray = new Frame[7][];
-		public Grid UIGrid { get; set; }
+		public Grid UIGrid { get; private set; }
 
 		public FredBoardGrid(Dictionary<GuitarString, List<FretBoardPosition>> fretBoardLayout)
 		{

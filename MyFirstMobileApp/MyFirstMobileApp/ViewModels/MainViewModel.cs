@@ -13,27 +13,7 @@ namespace MyFirstMobileApp
 	{
 		private BehaviorSubject<Model> ModelSubject;
 		public Grid FretBoardGrid => ModelSubject.Value.FretBoardGrid.UIGrid;
-	
-		public ReactiveProperty<Scale> SelectedScale { get; }
-		public ReactiveProperty<Tuning> SelectedTuning { get; }
-		public ReactiveProperty<string> TuningDescription { get; }
-
-		
-		public ObservableCollection<Scale> ScaleCollection
-		{
-			get
-			{
-				return ModelSubject.Value.DataBaseHandler.ScaleCollection;
-			}
-		}
-		public ObservableCollection<Tuning> TuningCollection
-		{
-			get
-			{
-				return ModelSubject.Value.DataBaseHandler.TuningCollection;
-			}
-		}
-
+			
 		public ReactiveCommand E1TuneDownCommand { get; }
 		public ReactiveCommand BTuneDownCommand { get; }
 		public ReactiveCommand GTuneDownCommand { get; }
@@ -50,36 +30,23 @@ namespace MyFirstMobileApp
 		public ReactiveCommand ETuneUpCommand { get; }
 		public ReactiveCommand AllTuneUpCommand { get; }
 
-		public ReactiveCommand AddTuningCommand { get; }
-		public ReactiveCommand DeleteTuningCommand { get; }
-		public ReactiveCommand SelectTuningCommand { get; }
-
-		public ReactiveCommand SelectScaleCommand { get; }
-
-		public ReactiveProperty<bool> IsEnabledDeleteTuningCommand { get; }
 		public ReactiveProperty<string> E1TuneUpCommandText { get; }
 		public ReactiveProperty<string> BTuneUpCommandText { get; }
 		public ReactiveProperty<string> GTuneUpCommandText { get; }
 		public ReactiveProperty<string> DTuneUpCommandText { get; }
 		public ReactiveProperty<string> ATuneUpCommandText { get; }
 		public ReactiveProperty<string> ETuneUpCommandText { get; }
+
 		public string TuneDownCommandText => Constants.UpSign;
 		public string AllTuneUpCommandText => $"{Constants.DownSign} {Constants.DownSign}";
 		public string AllTuneDownCommandText => $"{Constants.UpSign} {Constants.UpSign}";
-
 		public string SettingsCommandText => "...";
 
-		public ReactiveProperty<string> CurrentTuning { get; }
-		public ReactiveProperty<string> CurrentScale { get; }
 		public ReactiveProperty<string> GeneralSettings { get; }
 
 		public MainViewModel(Model model)
 		{
 			ModelSubject = model.ModelSubject;
-
-			SelectedScale = new ReactiveProperty<Scale>(ModelSubject.Value.FretBoard.Scale);
-			SelectedTuning = new ReactiveProperty<Tuning>();
-			TuningDescription = new ReactiveProperty<string>(string.Empty);
 
 			E1TuneDownCommand = new ReactiveCommand();
 			E1TuneDownCommand.Subscribe(() => TuneDown(GuitarString.E1));
@@ -123,69 +90,34 @@ namespace MyFirstMobileApp
 			AllTuneUpCommand = new ReactiveCommand();
 			AllTuneUpCommand.Subscribe(() => TuneUpAll());
 
-			AddTuningCommand = new ReactiveCommand();
-			AddTuningCommand.WithLatestFrom(TuningDescription, (_, d) => d).Subscribe(d => AddTuningToDB(d));
-
-			DeleteTuningCommand = new ReactiveCommand();
-			DeleteTuningCommand.Subscribe(() => ModelSubject.Value.DataBaseHandler.RemoveTuningFromDB(SelectedTuning.Value));
-
-			SelectTuningCommand = new ReactiveCommand();
-			SelectTuningCommand
-				.WithLatestFrom(SelectedTuning, (_, t) => (t))
-				.Subscribe(t =>
-				{
-					SelectedTuning.Value = t;
-					ModelSubject.Value.FretBoard.SetTuning(t);
-					ModelSubject.Value.UpdateFretboardUIGrid();
-				});
-
-			SelectScaleCommand = new ReactiveCommand();
-			SelectScaleCommand
-				.WithLatestFrom(SelectedScale, (_, s) => s)
-				.WithLatestFrom(ModelSubject, (s, m) => (s, m))
-				.Subscribe(tuple =>
-				{
-					ModelSubject.Value.FretBoard.SetScale(tuple.s, tuple.m.FretBoard.Key);
-					ModelSubject.Value.UpdateFretboardUIGrid();
-				});
-
-			IsEnabledDeleteTuningCommand = new ReactiveProperty<bool>();
-			SelectedTuning.Subscribe(t => IsEnabledDeleteTuningCommand.Value = t != null && !t.IsLocked());
 
 			E1TuneUpCommandText = new ReactiveProperty<string>(GetButtonDescription(GuitarString.E1));
-			Observable.Merge(E1TuneUpCommand, E1TuneDownCommand, AllTuneDownCommand, AllTuneUpCommand, SelectTuningCommand)
+			Observable.Merge(E1TuneUpCommand, E1TuneDownCommand, AllTuneDownCommand, AllTuneUpCommand, ModelSubject)
 				.Subscribe(o => E1TuneUpCommandText.Value = GetButtonDescription(GuitarString.E1));
 
 			BTuneUpCommandText = new ReactiveProperty<string>(GetButtonDescription(GuitarString.B));
-			Observable.Merge(BTuneUpCommand, BTuneDownCommand, AllTuneDownCommand, AllTuneUpCommand, SelectTuningCommand)
+			Observable.Merge(BTuneUpCommand, BTuneDownCommand, AllTuneDownCommand, AllTuneUpCommand, ModelSubject)
 				.Subscribe(o => BTuneUpCommandText.Value = GetButtonDescription(GuitarString.B));
 
 			GTuneUpCommandText = new ReactiveProperty<string>(GetButtonDescription(GuitarString.G));
-			Observable.Merge(GTuneUpCommand, GTuneDownCommand, AllTuneDownCommand, AllTuneUpCommand, SelectTuningCommand)
+			Observable.Merge(GTuneUpCommand, GTuneDownCommand, AllTuneDownCommand, AllTuneUpCommand, ModelSubject)
 				.Subscribe(o => GTuneUpCommandText.Value = GetButtonDescription(GuitarString.G));
 
 			ATuneUpCommandText = new ReactiveProperty<string>(GetButtonDescription(GuitarString.A));
-			Observable.Merge(ATuneUpCommand, ATuneDownCommand, AllTuneDownCommand, AllTuneUpCommand, SelectTuningCommand)
+			Observable.Merge(ATuneUpCommand, ATuneDownCommand, AllTuneDownCommand, AllTuneUpCommand, ModelSubject)
 				.Subscribe(o => ATuneUpCommandText.Value = GetButtonDescription(GuitarString.A));
 
 			DTuneUpCommandText = new ReactiveProperty<string>(GetButtonDescription(GuitarString.D));
-			Observable.Merge(DTuneUpCommand, DTuneDownCommand, AllTuneDownCommand, AllTuneUpCommand, SelectTuningCommand)
+			Observable.Merge(DTuneUpCommand, DTuneDownCommand, AllTuneDownCommand, AllTuneUpCommand, ModelSubject)
 				.Subscribe(o => DTuneUpCommandText.Value = GetButtonDescription(GuitarString.D));
 
 			ETuneUpCommandText = new ReactiveProperty<string>(GetButtonDescription(GuitarString.E));
-			Observable.Merge(ETuneUpCommand, ETuneDownCommand, AllTuneDownCommand, AllTuneUpCommand, SelectTuningCommand)
+			Observable.Merge(ETuneUpCommand, ETuneDownCommand, AllTuneDownCommand, AllTuneUpCommand, ModelSubject)
 				.Subscribe(o => ETuneUpCommandText.Value = GetButtonDescription(GuitarString.E));
+
 
 			GeneralSettings = new ReactiveProperty<string>();
 			ModelSubject.Subscribe(m => GeneralSettings.Value = GetDescription(m));
-
-			CurrentTuning = new ReactiveProperty<string>();
-			ModelSubject.Subscribe(m => CurrentTuning.Value =
-				"Current Tuning: " + m.FretBoard.Tuning.Notes);
-
-			CurrentScale = new ReactiveProperty<string>();
-			ModelSubject.Subscribe(m => CurrentScale.Value =
-				"Current Scale: " + m.FretBoard.Scale.Name);
 		}
 
 		private string GetDescription(Model model)
@@ -225,13 +157,6 @@ namespace MyFirstMobileApp
 		{
 			EnumCollectionCreator<GuitarString>.GetEnumCollection().ToList().ForEach(s => ModelSubject.Value.FretBoard.TuneUp(s));
 			ModelSubject.Value.UpdateFretboardUIGrid();
-		}
-
-		private void AddTuningToDB(string description)
-		{
-			Tuning newTuning = (Tuning)ModelSubject.Value.FretBoard.Tuning.Clone();
-			newTuning.Description = description;
-			ModelSubject.Value.DataBaseHandler.AddTuningToDB(newTuning);
 		}
 	}
 }

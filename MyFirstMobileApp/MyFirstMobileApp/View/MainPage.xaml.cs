@@ -20,9 +20,9 @@ namespace MyFirstMobileApp
             InitializeComponent();
             BindingContext = new MainViewModel(model);
 
-            _ListEditorTuning = new TuningListEditorPage();
+            _ListEditorTuning = new TuningListEditorPage(model);
             _ListEditorKey = new KeyListEditorPage(model);
-            _ListEditorScale = new ScaleListEditorPage();
+            _ListEditorScale = new ScaleListEditorPage(model);
             _SettingsPage = new SettingsPage(model);
         } 
 

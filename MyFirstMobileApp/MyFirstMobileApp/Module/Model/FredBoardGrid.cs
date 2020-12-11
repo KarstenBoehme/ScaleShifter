@@ -153,13 +153,12 @@ namespace MyFirstMobileApp
 		{
 			return new Frame
 			{
-				CornerRadius = 25,
-				HeightRequest = 50,
-				WidthRequest = 50,
-				BackgroundColor = GetNoteColor(fretBoardPosition),
-				Opacity = 1,
+				CornerRadius = 15,
+				HeightRequest = 30,
+				WidthRequest = 30,
 				Padding = 0,
-				Content = label,
+				BackgroundColor = GetNoteColor(fretBoardPosition),
+				Content = label
 			};
 		}
 		private Label GetLabel(FretBoardPosition fretBoardPosition)
@@ -168,9 +167,11 @@ namespace MyFirstMobileApp
 			{
 				Text = GetFretBoardPositionKeyText(fretBoardPosition),
 				TextColor = Color.Black,
+				Padding = 0,
 				FontAttributes = FontAttributes.Bold,
+				FontSize = 11,
 				HorizontalTextAlignment = TextAlignment.Center,
-				VerticalTextAlignment = TextAlignment.Center,
+				VerticalTextAlignment = TextAlignment.Center
 			};
 		}
 		private static Image GetImage()
@@ -198,11 +199,36 @@ namespace MyFirstMobileApp
 			switch (Settings.KeyDisplayingSettings)
 			{
 				case KeyDisplayingSettings.ALL:
-					return fretBoardPosition.Key.GetKeyDiscription();
+					switch (Settings.SemiStepSettings)
+					{
+						case SemiStepSettings.SHARP:
+						case SemiStepSettings.FLAT:
+							return fretBoardPosition.Key.GetKeyDiscription();
+
+						case SemiStepSettings.INTERVAL:
+							return fretBoardPosition.Interval.ToString();
+
+						default:
+							throw new ArgumentException($"unhandled enum: {nameof(SemiStepSettings)}");
+					}
+
 				case KeyDisplayingSettings.SCALE:
-					return fretBoardPosition.IsScaleNote ? fretBoardPosition.Key.GetKeyDiscription() : string.Empty;
+					switch (Settings.SemiStepSettings)
+					{
+						case SemiStepSettings.SHARP:
+						case SemiStepSettings.FLAT:
+							return fretBoardPosition.IsScaleNote ? fretBoardPosition.Key.GetKeyDiscription() : string.Empty;
+
+						case SemiStepSettings.INTERVAL:
+							return fretBoardPosition.IsScaleNote ? fretBoardPosition.Interval.ToString() : string.Empty;
+						
+						default:
+							throw new ArgumentException($"unhandled enum: {nameof(SemiStepSettings)}");
+					}
+					
 				case KeyDisplayingSettings.NONE:
 					return string.Empty;
+
 				default:
 					throw new ArgumentException($"unhandled enum: {nameof(KeyDisplayingSettings)}");
 			}

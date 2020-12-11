@@ -18,8 +18,7 @@ namespace MyFirstMobileApp
             ModelSubject = new BehaviorSubject<Model>(this);
 
             AppPreferences.Load(this);
-            FretBoard.SetScale(AppPreferences.Scale, AppPreferences.Key);
-            FretBoard.SetTuning(AppPreferences.Tuning);
+
             UpdateFretboardUIGrid();
             FretBoardGrid.UpdateCapoSetup(FretBoard.CapoPosition);
         }

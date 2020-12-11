@@ -51,6 +51,10 @@
 							GroupName="semitone"
 							IsChecked="{Binding Path=SemiSteps.Value, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static local:SemiStepSettings.FLAT}}"
 							Text="♭" />
+						<RadioButton
+							GroupName="semitone"
+							IsChecked="{Binding Path=SemiSteps.Value, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static local:SemiStepSettings.INTERVAL}}"
+							Text="interval" />
 
 						<Label Text="capo fret position:" />
 						<Grid>

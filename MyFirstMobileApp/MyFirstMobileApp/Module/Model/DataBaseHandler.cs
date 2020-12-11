@@ -38,10 +38,10 @@ namespace MyFirstMobileApp
 			TuningCollection.Add(newTuning);
 		}
 
-		public void RemoveTuningFromDB(Tuning deadTuning)
+		public void RemoveTuningFromDB(Tuning obsoleteTuning)
 		{
-			TuningDataBase.DeleteItemAsync(deadTuning);
-			TuningCollection.Remove(deadTuning);
+			TuningDataBase.DeleteItemAsync(obsoleteTuning);
+			TuningCollection.Remove(obsoleteTuning);
 		}
 	}
 }

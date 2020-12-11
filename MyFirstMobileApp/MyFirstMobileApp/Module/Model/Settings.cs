@@ -15,6 +15,7 @@ namespace MyFirstMobileApp
 	{
 		SHARP,
 		FLAT,
+		INTERVAL
 	}
 
 	public static class Settings

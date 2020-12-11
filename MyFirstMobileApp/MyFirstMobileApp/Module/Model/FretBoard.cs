@@ -51,6 +51,8 @@ namespace MyFirstMobileApp
 
 					fretBoardPosition.IsRootNote =
 						fretBoardPosition.Key == Key ? true : false;
+
+					fretBoardPosition.Interval = Intervalls.GetInterval(this.Key, fretBoardPosition.Key);
 				}
 			}
 		}

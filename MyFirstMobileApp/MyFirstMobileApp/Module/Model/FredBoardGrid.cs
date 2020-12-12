@@ -1,7 +1,5 @@
-﻿using Android.Widget;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using Xamarin.Forms;
 
@@ -11,20 +9,23 @@ namespace MyFirstMobileApp
 	{
 		private Frame[][] dataArray = new Frame[7][];
 		public Grid UIGrid { get; private set; }
+		private FretBoard FretBoard { get; }
 
-		public FredBoardGrid(Dictionary<GuitarString, List<FretBoardPosition>> fretBoardLayout)
+		public FredBoardGrid(FretBoard fretBoard)
 		{
+			FretBoard = fretBoard;
+
 			UIGrid = new Grid();
 
-			dataArray[0] = new Frame[13];
-			dataArray[1] = new Frame[13];
-			dataArray[2] = new Frame[13];
-			dataArray[3] = new Frame[13];
-			dataArray[4] = new Frame[13];
-			dataArray[5] = new Frame[13];
-			dataArray[6] = new Frame[13];
+			dataArray[0] = new Frame[Constants.NumberOfFrets];
+			dataArray[1] = new Frame[Constants.NumberOfFrets];
+			dataArray[2] = new Frame[Constants.NumberOfFrets];
+			dataArray[3] = new Frame[Constants.NumberOfFrets];
+			dataArray[4] = new Frame[Constants.NumberOfFrets];
+			dataArray[5] = new Frame[Constants.NumberOfFrets];
+			dataArray[6] = new Frame[Constants.NumberOfFrets];
 
-			FillDataArray(fretBoardLayout);
+			FillDataArray(FretBoard.FretBoardLayout);
 			FillFretBoardGrid();
 		}
 		private void FillDataArray(Dictionary<GuitarString, List<FretBoardPosition>> fretBoardLayout)
@@ -35,13 +36,11 @@ namespace MyFirstMobileApp
 			{
 				GuitarString guitarString = guitarStrings[stringIndex];
 
-				for (int posIndex = 0; posIndex < fretBoardLayout[guitarString].Count() + 1; posIndex++)
+				for (int posIndex = 0; posIndex < fretBoardLayout[guitarString].Count(); posIndex++)
 				{
-					FretBoardPosition fretBoardPosition = posIndex == 12 ?
-						fretBoardLayout[guitarString][0] :
-						fretBoardLayout[guitarString][posIndex];
+					FretBoardPosition fretBoardPosition = fretBoardLayout[guitarString][posIndex];
 
-					Label label = GetLabel(fretBoardPosition);
+					Label label = GetLabel(fretBoardPosition, posIndex);
 					Frame frame = GetFrame(fretBoardPosition, label);
 					dataArray[stringIndex][posIndex] = frame;
 				}
@@ -49,7 +48,7 @@ namespace MyFirstMobileApp
 
 			//add fret numbers
 			int indexLastRow = dataArray.GetLength(0) - 1;
-			for (int fretIndex = 0; fretIndex <= Constants.NumberOfNotes; fretIndex++)
+			for (int fretIndex = 0; fretIndex <= Constants.NumberOfFrets - 1; fretIndex++)
 			{
 				Label label = new Label()
 				{
@@ -69,7 +68,7 @@ namespace MyFirstMobileApp
 		}
 
 		private void FillFretBoardGrid()
-		{	
+		{
 			UIGrid.Children.Add(GetImage());
 
 			//setup grid
@@ -78,7 +77,7 @@ namespace MyFirstMobileApp
 				UIGrid.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(0.5, GridUnitType.Star) });
 			}
 
-			for (int fretnumber = 0; fretnumber < Constants.NumberOfNotes + 1; fretnumber++)
+			for (int fretnumber = 0; fretnumber <= Constants.NumberOfFrets - 1; fretnumber++)
 			{
 				UIGrid.ColumnDefinitions.Add(new ColumnDefinition() { Width = GridLength.Star });
 			}
@@ -113,9 +112,7 @@ namespace MyFirstMobileApp
 
 			for (int posIndex = 0; posIndex < dataArray[stringIndex].Length; posIndex++)
 			{
-				FretBoardPosition fretBoardPosition = posIndex == 12 ?
-						fretBoardLayout[guitarString][0] :
-						fretBoardLayout[guitarString][posIndex];
+				FretBoardPosition fretBoardPosition = fretBoardLayout[guitarString][posIndex];
 
 				Frame frame = UIGrid.Children
 					.Where(c => c.GetType() == typeof(Frame))
@@ -123,30 +120,20 @@ namespace MyFirstMobileApp
 					.First(e => Grid.GetRow(e) == stringIndex && Grid.GetColumn(e) == posIndex && Grid.GetRowSpan(e) == 1);
 				Label label = ((Label)frame.Content);
 
-				label.Text = GetFretBoardPositionKeyText(fretBoardPosition);
-				frame.BackgroundColor = GetNoteColor(fretBoardPosition);
+				label.Text = GetFretBoardPositionKeyText(fretBoardPosition, posIndex);
+				frame.BackgroundColor = posIndex < FretBoard.CapoPosition ? Color.Transparent : GetNoteColor(fretBoardPosition);
 			}
 		}
 
-		public void UpdateCapoSetup(int capoPosition)
+		public void UpdateCapo(int capoPosition)
 		{
 			Frame capo = UIGrid.Children
 					.Where(c => c.GetType() == typeof(Frame))
 					.Cast<Frame>()
-					.First(e => Grid.GetRow(e) == 0 && Grid.GetColumn(e) == 0 && Grid.GetRowSpan(e) == Constants.NumberOfStrings);
-			
+					.First(e => Grid.GetRow(e) == 0 && Grid.GetRowSpan(e) == Constants.NumberOfStrings);
+
 			capo.BackgroundColor = capoPosition > 0 ? Color.FromHex("C6B598") : Color.Transparent;
-
-			for (int posIndex = 0; posIndex < Constants.NumberOfNotes + 1; posIndex++)
-			{
-				Frame frame = UIGrid.Children
-					.Where(c => c.GetType() == typeof(Frame))
-					.Cast<Frame>()
-					.First(e => Grid.GetRow(e) == 6 && Grid.GetColumn(e) == posIndex);
-				Label label = ((Label)frame.Content);
-
-				label.Text = (posIndex + capoPosition).ToString();
-			}
+			Grid.SetColumn(capo, capoPosition);
 		}
 
 		private Frame GetFrame(FretBoardPosition fretBoardPosition, Label label)
@@ -161,11 +148,11 @@ namespace MyFirstMobileApp
 				Content = label
 			};
 		}
-		private Label GetLabel(FretBoardPosition fretBoardPosition)
+		private Label GetLabel(FretBoardPosition fretBoardPosition, int posIndex)
 		{
 			return new Label()
 			{
-				Text = GetFretBoardPositionKeyText(fretBoardPosition),
+				Text = GetFretBoardPositionKeyText(fretBoardPosition, posIndex),
 				TextColor = Color.Black,
 				Padding = 0,
 				FontAttributes = FontAttributes.Bold,
@@ -177,9 +164,9 @@ namespace MyFirstMobileApp
 		private static Image GetImage()
 		{
 			Image image = new Image();
-			image.Source = "FretBoardColorless.jpg";
+			image.Source = "FretBoardColorless23.jpg";
 			Grid.SetColumn(image, 0);
-			Grid.SetColumnSpan(image, Constants.NumberOfNotes + 1);
+			Grid.SetColumnSpan(image, Constants.NumberOfFrets);
 			Grid.SetRow(image, 0);
 			Grid.SetRowSpan(image, Constants.NumberOfStrings);
 			image.Aspect = Aspect.Fill;
@@ -194,7 +181,7 @@ namespace MyFirstMobileApp
 			return fretBoardPosition.IsRootNote ? Color.FromHex("FDCF76") : fretBoardPosition.IsScaleNote ? Color.FromHex("DD4124") : Color.Transparent;
 		}
 
-		private string GetFretBoardPositionKeyText(FretBoardPosition fretBoardPosition)
+		private string GetFretBoardPositionKeyText(FretBoardPosition fretBoardPosition, int posIndex)
 		{
 			switch (Settings.KeyDisplayingSettings)
 			{
@@ -217,15 +204,15 @@ namespace MyFirstMobileApp
 					{
 						case SemiStepSettings.SHARP:
 						case SemiStepSettings.FLAT:
-							return fretBoardPosition.IsScaleNote ? fretBoardPosition.Key.GetKeyDiscription() : string.Empty;
+							return fretBoardPosition.IsScaleNote && !(posIndex < FretBoard.CapoPosition) ? fretBoardPosition.Key.GetKeyDiscription() : string.Empty;
 
 						case SemiStepSettings.INTERVAL:
-							return fretBoardPosition.IsScaleNote ? fretBoardPosition.Interval.ToString() : string.Empty;
-						
+							return fretBoardPosition.IsScaleNote && !(posIndex < FretBoard.CapoPosition) ? fretBoardPosition.Interval.ToString() : string.Empty;
+
 						default:
 							throw new ArgumentException($"unhandled enum: {nameof(SemiStepSettings)}");
 					}
-					
+
 				case KeyDisplayingSettings.NONE:
 					return string.Empty;
 

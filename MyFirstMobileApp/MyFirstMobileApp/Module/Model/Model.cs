@@ -14,13 +14,13 @@ namespace MyFirstMobileApp
         {
             DataBaseHandler = new DataBaseHandler();
             FretBoard = new FretBoard();
-			FretBoardGrid = new FredBoardGrid(FretBoard.FretBoardLayout);
+			FretBoardGrid = new FredBoardGrid(FretBoard);
             ModelSubject = new BehaviorSubject<Model>(this);
 
             AppPreferences.Load(this);
 
             UpdateFretboardUIGrid();
-            FretBoardGrid.UpdateCapoSetup(FretBoard.CapoPosition);
+            FretBoardGrid.UpdateCapo(FretBoard.CapoPosition);
         }
 
         public void UpdateFretboardUIGrid()
@@ -40,7 +40,7 @@ namespace MyFirstMobileApp
         {
             FretBoard.SetScale(FretBoard.Scale, FretBoard.Key);
             FretBoard.SetTuning(FretBoard.Tuning);
-            FretBoardGrid.UpdateCapoSetup(FretBoard.CapoPosition);
+            FretBoardGrid.UpdateCapo(FretBoard.CapoPosition);
             UpdateFretboardUIGrid();
         }
     }

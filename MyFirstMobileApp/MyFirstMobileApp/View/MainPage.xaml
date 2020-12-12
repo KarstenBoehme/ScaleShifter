@@ -81,12 +81,14 @@
 				Style="{StaticResource StringButtonStyle}"
 				Text="{Binding AllTuneUpCommandText}" />
 
-			<!--<ScrollView/>-->
-			<ContentView
+			<ScrollView
 				Grid.Row="0"
 				Grid.RowSpan="7"
 				Grid.Column="1"
-				Content="{Binding FretBoardGrid}" />
+				HorizontalScrollBarVisibility="Never"
+				Orientation="Horizontal">
+				<ContentView Content="{Binding FretBoardGrid}" />
+			</ScrollView>
 
 			<Button
 				Grid.Row="0"

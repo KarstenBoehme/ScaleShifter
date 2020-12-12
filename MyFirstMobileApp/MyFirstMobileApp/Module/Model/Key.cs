@@ -24,6 +24,12 @@ namespace MyFirstMobileApp
 	public static class Keys
 	{
 		public static List<Key> ListOfKeys => EnumCollectionCreator<Key>.GetEnumCollection().ToList();
+		
+		//TODO dirty
+		public static List<Key> ListOfKeysForFretLayout()
+		{
+			return ListOfKeys.Concat(ListOfKeys).Take(Constants.NumberOfFrets).ToList();
+		}
 
 		public static Key GetKey(GuitarString guitarString)
 		{
@@ -100,40 +106,6 @@ namespace MyFirstMobileApp
 				default:
 					throw new ArgumentException($"unhandled enum: {nameof(Key)}");
 			}
-		}
-
-		public static Key OffsetCapo(this Key key, int capoPosition)
-		{
-			int indexKey = Keys.ListOfKeys.IndexOf(key);
-			int indexNewKeyWithCapo = indexKey + capoPosition;
-			int lastIndex = Keys.ListOfKeys.Count() - 1;
-
-			bool isOutOfRange = indexNewKeyWithCapo > lastIndex;
-			if (isOutOfRange)
-			{
-				indexNewKeyWithCapo = Math.Abs(indexNewKeyWithCapo - lastIndex - 1);
-			}
-
-			Key offsetKey = Keys.ListOfKeys[indexNewKeyWithCapo];
-
-			return offsetKey;
-		}
-
-		public static Key BaseForCapoOffset(this Key key, int capoPosition)
-		{
-			int indexKey = Keys.ListOfKeys.IndexOf(key);
-			int indexNewKeyWithCapo = indexKey - capoPosition;
-			int lastIndex = Keys.ListOfKeys.Count() - 1;
-
-			bool isOutOfRange = indexNewKeyWithCapo < 0;
-			if (isOutOfRange)
-			{
-				indexNewKeyWithCapo = Math.Abs(lastIndex + indexNewKeyWithCapo + 1);
-			}
-
-			Key offsetKey = Keys.ListOfKeys[indexNewKeyWithCapo];
-
-			return offsetKey;
 		}
 	}
 }

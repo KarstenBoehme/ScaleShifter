@@ -527,3 +527,5 @@ C:\Users\Karsten\source\repos\MyFirstMobileApp\MyFirstMobileApp\MyFirstMobileApp
 C:\Users\Karsten\source\repos\MyFirstMobileApp\MyFirstMobileApp\MyFirstMobileApp.Android\obj\Debug\90\stamp\_GenerateJavaStubs.stamp
 C:\Users\Karsten\source\repos\MyFirstMobileApp\MyFirstMobileApp\MyFirstMobileApp.Android\obj\Debug\90\stamp\_GeneratePackageManagerJava.stamp
 C:\Users\Karsten\source\repos\MyFirstMobileApp\MyFirstMobileApp\MyFirstMobileApp.Android\obj\Debug\90\stamp\_ResolveLibraryProjectImports.stamp
+C:\Users\Karsten\source\repos\MyFirstMobileApp\MyFirstMobileApp\MyFirstMobileApp.Android\obj\Debug\90\res\drawable\fretboardcolorless20.jpg
+C:\Users\Karsten\source\repos\MyFirstMobileApp\MyFirstMobileApp\MyFirstMobileApp.Android\obj\Debug\90\res\drawable\fretboardcolorless23.jpg

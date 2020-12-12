@@ -30,12 +30,12 @@ namespace MyFirstMobileApp
 			EnumCollectionCreator<GuitarString>.GetEnumCollection().ToList()
 				.ForEach(gs => FretBoardLayout.Add(gs, new List<FretBoardPosition>()));
 
-			Keys.ListOfKeys.ForEach(e => FretBoardLayout[GuitarString.E1].Add(new FretBoardPosition(e)));
-			Keys.ListOfKeys.ForEach(e => FretBoardLayout[GuitarString.B].Add(new FretBoardPosition(e)));
-			Keys.ListOfKeys.ForEach(e => FretBoardLayout[GuitarString.G].Add(new FretBoardPosition(e)));
-			Keys.ListOfKeys.ForEach(e => FretBoardLayout[GuitarString.D].Add(new FretBoardPosition(e)));
-			Keys.ListOfKeys.ForEach(e => FretBoardLayout[GuitarString.A].Add(new FretBoardPosition(e)));
-			Keys.ListOfKeys.ForEach(e => FretBoardLayout[GuitarString.E].Add(new FretBoardPosition(e)));
+			Keys.ListOfKeysForFretLayout().ForEach(e => FretBoardLayout[GuitarString.E1].Add(new FretBoardPosition(e)));
+			Keys.ListOfKeysForFretLayout().ForEach(e => FretBoardLayout[GuitarString.B].Add(new FretBoardPosition(e)));
+			Keys.ListOfKeysForFretLayout().ForEach(e => FretBoardLayout[GuitarString.G].Add(new FretBoardPosition(e)));
+			Keys.ListOfKeysForFretLayout().ForEach(e => FretBoardLayout[GuitarString.D].Add(new FretBoardPosition(e)));
+			Keys.ListOfKeysForFretLayout().ForEach(e => FretBoardLayout[GuitarString.A].Add(new FretBoardPosition(e)));
+			Keys.ListOfKeysForFretLayout().ForEach(e => FretBoardLayout[GuitarString.E].Add(new FretBoardPosition(e)));
 		}
 		public void SetScale(Scale scale, Key key)
 		{
@@ -52,7 +52,8 @@ namespace MyFirstMobileApp
 					fretBoardPosition.IsRootNote =
 						fretBoardPosition.Key == Key ? true : false;
 
-					fretBoardPosition.Interval = Intervalls.GetInterval(this.Key, fretBoardPosition.Key);
+					fretBoardPosition.Interval = 
+						Intervalls.GetInterval(this.Key, fretBoardPosition.Key);
 				}
 			}
 		}
@@ -63,10 +64,9 @@ namespace MyFirstMobileApp
 
 			foreach (GuitarString stringKey in FretBoardLayout.Keys)
 			{
-				Key tuningKey = tuning.ToDict()[stringKey];
-				Key offsetKey = tuningKey.OffsetCapo(CapoPosition);
+				Key newTuningKey = tuning.ToDict()[stringKey];
 
-				while (FretBoardLayout[stringKey][0].Key != offsetKey)
+				while (FretBoardLayout[stringKey][0].Key != newTuningKey)
 				{
 					TuneUp(stringKey);
 				}
@@ -93,22 +93,22 @@ namespace MyFirstMobileApp
 			switch (guitarString)
 			{
 				case GuitarString.E1:
-					Tuning.E1 = FretBoardLayout[guitarString][0].Key.BaseForCapoOffset(CapoPosition).ToString();
+					Tuning.E1 = FretBoardLayout[guitarString][0].Key.ToString();
 					break;
 				case GuitarString.B:
-					Tuning.B = FretBoardLayout[guitarString][0].Key.BaseForCapoOffset(CapoPosition).ToString();
+					Tuning.B = FretBoardLayout[guitarString][0].Key.ToString();
 					break;
 				case GuitarString.G:
-					Tuning.G = FretBoardLayout[guitarString][0].Key.BaseForCapoOffset(CapoPosition).ToString();
+					Tuning.G = FretBoardLayout[guitarString][0].Key.ToString();
 					break;
 				case GuitarString.D:
-					Tuning.D = FretBoardLayout[guitarString][0].Key.BaseForCapoOffset(CapoPosition).ToString();
+					Tuning.D = FretBoardLayout[guitarString][0].Key.ToString();
 					break;
 				case GuitarString.A:
-					Tuning.A = FretBoardLayout[guitarString][0].Key.BaseForCapoOffset(CapoPosition).ToString();
+					Tuning.A = FretBoardLayout[guitarString][0].Key.ToString();
 					break;
 				case GuitarString.E:
-					Tuning.E = FretBoardLayout[guitarString][0].Key.BaseForCapoOffset(CapoPosition).ToString();
+					Tuning.E = FretBoardLayout[guitarString][0].Key.ToString();
 					break;
 				default:
 					throw new ArgumentException($"unhandled enum {typeof(GuitarString)}");
@@ -118,7 +118,7 @@ namespace MyFirstMobileApp
 		public string GetStepsFromStandard(GuitarString guitarString)
 		{
 			Key standardKey = Keys.GetKey(guitarString);
-			Key tunedKey = FretBoardLayout[guitarString][0].Key.BaseForCapoOffset(CapoPosition);
+			Key tunedKey = FretBoardLayout[guitarString][0].Key;
 
 			IEnumerable<Key> upperPart = Keys.ListOfKeys.GetRange(Keys.ListOfKeys.IndexOf(standardKey), Keys.ListOfKeys.Count() - Keys.ListOfKeys.IndexOf(standardKey));
 			IEnumerable<Key> lowerPart = Keys.ListOfKeys.Except(upperPart);

@@ -25,10 +25,10 @@ namespace MyFirstMobileApp
 			dataArray[5] = new Frame[Constants.NumberOfFrets];
 			dataArray[6] = new Frame[Constants.NumberOfFrets];
 
-			FillDataArray(FretBoard.FretBoardLayout);
+			FillDataArray();
 			FillFretBoardGrid();
 		}
-		private void FillDataArray(Dictionary<GuitarString, List<FretBoardPosition>> fretBoardLayout)
+		private void FillDataArray()
 		{
 			List<GuitarString> guitarStrings = EnumCollectionCreator<GuitarString>.GetEnumCollection().ToList();
 
@@ -36,11 +36,11 @@ namespace MyFirstMobileApp
 			{
 				GuitarString guitarString = guitarStrings[stringIndex];
 
-				for (int posIndex = 0; posIndex < fretBoardLayout[guitarString].Count(); posIndex++)
+				for (int posIndex = 0; posIndex < FretBoard.FretBoardLayout[guitarString].Count(); posIndex++)
 				{
-					FretBoardPosition fretBoardPosition = fretBoardLayout[guitarString][posIndex];
+					FretBoardPosition fretBoardPosition = FretBoard.FretBoardLayout[guitarString][posIndex];
 
-					Label label = GetLabel(fretBoardPosition, posIndex);
+					CustomLabel label = GetLabel(fretBoardPosition, posIndex);
 					Frame frame = GetFrame(fretBoardPosition, label);
 					dataArray[stringIndex][posIndex] = frame;
 				}
@@ -50,12 +50,8 @@ namespace MyFirstMobileApp
 			int indexLastRow = dataArray.GetLength(0) - 1;
 			for (int fretIndex = 0; fretIndex <= Constants.NumberOfFrets - 1; fretIndex++)
 			{
-				Label label = new Label()
-				{
-					Text = (fretIndex).ToString(),
-					HorizontalTextAlignment = TextAlignment.Center,
-					VerticalTextAlignment = TextAlignment.Center,
-				};
+				CustomLabel label = new CustomLabel((fretIndex).ToString(), 5, 5);
+
 				Frame frame = new Frame()
 				{
 					Content = label,
@@ -103,40 +99,40 @@ namespace MyFirstMobileApp
 			}
 		}
 
-		public void UpdateGrid(Dictionary<GuitarString, List<FretBoardPosition>> fretBoardLayout, GuitarString guitarString)
+		public void UpdateGrid(GuitarString guitarString)
 		{
-			FillDataArray(fretBoardLayout);
+			FillDataArray();
 
 			List<GuitarString> guitarStrings = EnumCollectionCreator<GuitarString>.GetEnumCollection().ToList();
 			int stringIndex = guitarStrings.IndexOf(guitarString);
 
 			for (int posIndex = 0; posIndex < dataArray[stringIndex].Length; posIndex++)
 			{
-				FretBoardPosition fretBoardPosition = fretBoardLayout[guitarString][posIndex];
+				FretBoardPosition fretBoardPosition = FretBoard.FretBoardLayout[guitarString][posIndex];
 
 				Frame frame = UIGrid.Children
 					.Where(c => c.GetType() == typeof(Frame))
 					.Cast<Frame>()
 					.First(e => Grid.GetRow(e) == stringIndex && Grid.GetColumn(e) == posIndex && Grid.GetRowSpan(e) == 1);
-				Label label = ((Label)frame.Content);
+				CustomLabel label = ((CustomLabel)frame.Content);
 
 				label.Text = GetFretBoardPositionKeyText(fretBoardPosition, posIndex);
 				frame.BackgroundColor = posIndex < FretBoard.CapoPosition ? Color.Transparent : GetNoteColor(fretBoardPosition);
 			}
 		}
 
-		public void UpdateCapo(int capoPosition)
+		public void UpdateCapo()
 		{
 			Frame capo = UIGrid.Children
 					.Where(c => c.GetType() == typeof(Frame))
 					.Cast<Frame>()
 					.First(e => Grid.GetRow(e) == 0 && Grid.GetRowSpan(e) == Constants.NumberOfStrings);
 
-			capo.BackgroundColor = capoPosition > 0 ? Color.FromHex("C6B598") : Color.Transparent;
-			Grid.SetColumn(capo, capoPosition);
+			capo.BackgroundColor = FretBoard.CapoPosition > 0 ? Color.FromHex("C6B598") : Color.Transparent;
+			Grid.SetColumn(capo, FretBoard.CapoPosition);
 		}
 
-		private Frame GetFrame(FretBoardPosition fretBoardPosition, Label label)
+		private Frame GetFrame(FretBoardPosition fretBoardPosition, CustomLabel label)
 		{
 			return new Frame
 			{
@@ -145,21 +141,12 @@ namespace MyFirstMobileApp
 				WidthRequest = 30,
 				Padding = 0,
 				BackgroundColor = GetNoteColor(fretBoardPosition),
-				Content = label
+				Content = label,
 			};
 		}
-		private Label GetLabel(FretBoardPosition fretBoardPosition, int posIndex)
+		private CustomLabel GetLabel(FretBoardPosition fretBoardPosition, int posIndex)
 		{
-			return new Label()
-			{
-				Text = GetFretBoardPositionKeyText(fretBoardPosition, posIndex),
-				TextColor = Color.Black,
-				Padding = 0,
-				FontAttributes = FontAttributes.Bold,
-				FontSize = 11,
-				HorizontalTextAlignment = TextAlignment.Center,
-				VerticalTextAlignment = TextAlignment.Center
-			};
+			return new CustomLabel(GetFretBoardPositionKeyText(fretBoardPosition, posIndex), 5, 5);
 		}
 		private static Image GetImage()
 		{

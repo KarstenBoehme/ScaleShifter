@@ -20,19 +20,19 @@ namespace MyFirstMobileApp
             AppPreferences.Load(this);
 
             UpdateFretboardUIGrid();
-            FretBoardGrid.UpdateCapo(FretBoard.CapoPosition);
+            FretBoardGrid.UpdateCapo();
         }
 
         public void UpdateFretboardUIGrid()
         {
             EnumCollectionCreator<GuitarString>.GetEnumCollection().ToList()
-                .ForEach(s => FretBoardGrid.UpdateGrid(FretBoard.FretBoardLayout, s));
+                .ForEach(s => FretBoardGrid.UpdateGrid(s));
             ModelSubject.OnNext(this);
         }
 
         public void UpdateFretboardUIGrid(GuitarString guitarString)
         {
-            FretBoardGrid.UpdateGrid(FretBoard.FretBoardLayout, guitarString);
+            FretBoardGrid.UpdateGrid(guitarString);
             ModelSubject.OnNext(this);
         }
 
@@ -40,7 +40,7 @@ namespace MyFirstMobileApp
         {
             FretBoard.SetScale(FretBoard.Scale, FretBoard.Key);
             FretBoard.SetTuning(FretBoard.Tuning);
-            FretBoardGrid.UpdateCapo(FretBoard.CapoPosition);
+            FretBoardGrid.UpdateCapo();
             UpdateFretboardUIGrid();
         }
     }

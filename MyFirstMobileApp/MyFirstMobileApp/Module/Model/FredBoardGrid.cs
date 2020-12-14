@@ -7,7 +7,7 @@ namespace MyFirstMobileApp
 {
 	public class FredBoardGrid
 	{
-		private Frame[][] dataArray = new Frame[7][];
+		private FastFixedSizeLabel[][] dataArray = new FastFixedSizeLabel[7][];
 		public Grid UIGrid { get; private set; }
 		private FretBoard FretBoard { get; }
 
@@ -17,13 +17,13 @@ namespace MyFirstMobileApp
 
 			UIGrid = new Grid();
 
-			dataArray[0] = new Frame[Constants.NumberOfFrets];
-			dataArray[1] = new Frame[Constants.NumberOfFrets];
-			dataArray[2] = new Frame[Constants.NumberOfFrets];
-			dataArray[3] = new Frame[Constants.NumberOfFrets];
-			dataArray[4] = new Frame[Constants.NumberOfFrets];
-			dataArray[5] = new Frame[Constants.NumberOfFrets];
-			dataArray[6] = new Frame[Constants.NumberOfFrets];
+			dataArray[0] = new FastFixedSizeLabel[Constants.NumberOfFrets];
+			dataArray[1] = new FastFixedSizeLabel[Constants.NumberOfFrets];
+			dataArray[2] = new FastFixedSizeLabel[Constants.NumberOfFrets];
+			dataArray[3] = new FastFixedSizeLabel[Constants.NumberOfFrets];
+			dataArray[4] = new FastFixedSizeLabel[Constants.NumberOfFrets];
+			dataArray[5] = new FastFixedSizeLabel[Constants.NumberOfFrets];
+			dataArray[6] = new FastFixedSizeLabel[Constants.NumberOfFrets];
 
 			FillDataArray();
 			FillFretBoardGrid();
@@ -39,10 +39,9 @@ namespace MyFirstMobileApp
 				for (int posIndex = 0; posIndex < FretBoard.FretBoardLayout[guitarString].Count(); posIndex++)
 				{
 					FretBoardPosition fretBoardPosition = FretBoard.FretBoardLayout[guitarString][posIndex];
+					FastFixedSizeLabel label = GetLabel(fretBoardPosition, posIndex);
 
-					CustomLabel label = GetLabel(fretBoardPosition, posIndex);
-					Frame frame = GetFrame(fretBoardPosition, label);
-					dataArray[stringIndex][posIndex] = frame;
+					dataArray[stringIndex][posIndex] = label;
 				}
 			}
 
@@ -50,22 +49,21 @@ namespace MyFirstMobileApp
 			int indexLastRow = dataArray.GetLength(0) - 1;
 			for (int fretIndex = 0; fretIndex <= Constants.NumberOfFrets - 1; fretIndex++)
 			{
-				CustomLabel label = new CustomLabel((fretIndex).ToString(), 5, 5);
-
-				Frame frame = new Frame()
+				FastFixedSizeLabel label = new FastFixedSizeLabel(5, 5)
 				{
-					Content = label,
-					Padding = 0,
-					BackgroundColor = Color.Transparent,
+					Text = (fretIndex).ToString(),
 				};
 
-				dataArray[indexLastRow][fretIndex] = frame;
+				dataArray[indexLastRow][fretIndex] = label;
 			}
 		}
 
 		private void FillFretBoardGrid()
 		{
 			UIGrid.Children.Add(GetImage());
+
+			UIGrid.HorizontalOptions = LayoutOptions.Center;
+			UIGrid.VerticalOptions = LayoutOptions.Center;
 
 			//setup grid
 			for (int stringNumber = 0; stringNumber < Constants.NumberOfStrings + 1; stringNumber++)
@@ -88,13 +86,13 @@ namespace MyFirstMobileApp
 			UIGrid.Children.Add(capo, 0, 0);
 			Grid.SetRowSpan(capo, 6);
 
-			//add frames for keys
+			//add labels for fretboard position keys
 			for (int rowIndex = 0; rowIndex < dataArray.GetLength(0); rowIndex++)
 			{
 				for (int columnIndex = 0; columnIndex < dataArray[rowIndex].Length; columnIndex++)
 				{
-					Frame frame = dataArray[rowIndex][columnIndex];
-					UIGrid.Children.Add(frame, columnIndex, rowIndex);
+					FastFixedSizeLabel label = dataArray[rowIndex][columnIndex];
+					UIGrid.Children.Add(label, columnIndex, rowIndex);
 				}
 			}
 		}
@@ -109,15 +107,14 @@ namespace MyFirstMobileApp
 			for (int posIndex = 0; posIndex < dataArray[stringIndex].Length; posIndex++)
 			{
 				FretBoardPosition fretBoardPosition = FretBoard.FretBoardLayout[guitarString][posIndex];
-
-				Frame frame = UIGrid.Children
-					.Where(c => c.GetType() == typeof(Frame))
-					.Cast<Frame>()
+				FastFixedSizeLabel label = UIGrid.Children
+					.Where(c => c.GetType() == typeof(FastFixedSizeLabel))
+					.Cast<FastFixedSizeLabel>()
 					.First(e => Grid.GetRow(e) == stringIndex && Grid.GetColumn(e) == posIndex && Grid.GetRowSpan(e) == 1);
-				CustomLabel label = ((CustomLabel)frame.Content);
 
 				label.Text = GetFretBoardPositionKeyText(fretBoardPosition, posIndex);
-				frame.BackgroundColor = posIndex < FretBoard.CapoPosition ? Color.Transparent : GetNoteColor(fretBoardPosition);
+				label.BackgroundColor = posIndex < FretBoard.CapoPosition ? Color.Transparent : GetNoteColor(fretBoardPosition);
+				label.BorderColor = !fretBoardPosition.IsScaleNote || posIndex < FretBoard.CapoPosition ? Color.Transparent : Color.Gray;
 			}
 		}
 
@@ -132,21 +129,15 @@ namespace MyFirstMobileApp
 			Grid.SetColumn(capo, FretBoard.CapoPosition);
 		}
 
-		private Frame GetFrame(FretBoardPosition fretBoardPosition, CustomLabel label)
+		private FastFixedSizeLabel GetLabel(FretBoardPosition fretBoardPosition, int posIndex)
 		{
-			return new Frame
+			return new FastFixedSizeLabel(25, 40)
 			{
-				CornerRadius = 15,
-				HeightRequest = 30,
-				WidthRequest = 30,
-				Padding = 0,
-				BackgroundColor = GetNoteColor(fretBoardPosition),
-				Content = label,
+				Text = GetFretBoardPositionKeyText(fretBoardPosition, posIndex),
+				CornerRadius = 25,	
+				Margin = 2.5,
+				BorderWidth = 2,
 			};
-		}
-		private CustomLabel GetLabel(FretBoardPosition fretBoardPosition, int posIndex)
-		{
-			return new CustomLabel(GetFretBoardPositionKeyText(fretBoardPosition, posIndex), 5, 5);
 		}
 		private static Image GetImage()
 		{

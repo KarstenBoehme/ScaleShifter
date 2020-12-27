@@ -30,7 +30,7 @@ namespace MyFirstMobileApp.Module.Properties
 
 			while(Constants.NumberOfFrets - listOfKeysForFretLayout.Count > 0)
 			{
-				listOfKeysForFretLayout.Concat(ListOfKeys);
+				listOfKeysForFretLayout.AddRange(ListOfKeys);
 			}
 
 			return listOfKeysForFretLayout.Take(Constants.NumberOfFrets).ToList();
@@ -59,11 +59,6 @@ namespace MyFirstMobileApp.Module.Properties
 				default:
 					throw new ArgumentException($"unhandled enum: {nameof(GuitarString)}");
 			}
-		}
-
-		public static Key GetKey(string guitarString)
-		{
-			return ListOfKeys.Single(k => k.ToString().Equals(guitarString));
 		}
 	}
 }

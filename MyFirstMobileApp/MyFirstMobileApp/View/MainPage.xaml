@@ -3,7 +3,8 @@
 	x:Class="MyFirstMobileApp.MainPage"
 	xmlns="http://xamarin.com/schemas/2014/forms"
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-	xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core">
+	xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+	xmlns:utils="clr-namespace:MyFirstMobileApp">
 	<StackLayout
 		Margin="15,5,15,15"
 		Orientation="Vertical"
@@ -81,12 +82,14 @@
 				Style="{StaticResource StringButtonStyle}"
 				Text="{Binding AllTuneUpCommandText}" />
 
-			<!--<ScrollView/>-->
-			<ContentView
+			<ScrollView
 				Grid.Row="0"
 				Grid.RowSpan="7"
 				Grid.Column="1"
-				Content="{Binding FretBoardGrid}" />
+				HorizontalScrollBarVisibility="Never"
+				Orientation="Horizontal">
+				<ContentView Content="{Binding FretBoardGrid}" />
+			</ScrollView>
 
 			<Button
 				Grid.Row="0"

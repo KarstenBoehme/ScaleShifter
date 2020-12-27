@@ -6,6 +6,7 @@
     <PackageId>Scale Shifter</PackageId>
     <Authors>KB</Authors>
     <Product>Scale Shifter</Product>
+    <Platforms>AnyCPU;x86</Platforms>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -13,7 +14,13 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
+    <DebugType>portable</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
   <ItemGroup>
+    <None Remove="Resources\raw\edrecksfile.mid" />
     <None Remove="Resources\scales.sql" />
     <None Remove="Resources\SQScales.db" />
   </ItemGroup>
@@ -34,7 +41,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Resources\" />
+    <Resource Include="Resources\raw\edrecksfile.mid" />
   </ItemGroup>
 
   <ItemGroup>

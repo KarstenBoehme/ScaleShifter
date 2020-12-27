@@ -1,13 +1,15 @@
-﻿using Reactive.Bindings;
+﻿using MyFirstMobileApp.Module;
+using MyFirstMobileApp.Module.Fretboard;
+using MyFirstMobileApp.Module.KeyPlayer;
+using MyFirstMobileApp.Module.Properties;
+using Reactive.Bindings;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using Xamarin.Forms;
 
-namespace MyFirstMobileApp
+namespace MyFirstMobileApp.ViewModels
 {
 	public class MainViewModel : ReactiveUI.ReactiveObject
 	{
@@ -49,7 +51,7 @@ namespace MyFirstMobileApp
 			ModelSubject = model.ModelSubject;
 
 			E1TuneDownCommand = new ReactiveCommand();
-			E1TuneDownCommand.Subscribe(() => TuneDown(GuitarString.E1));
+			E1TuneDownCommand.Subscribe(() => TuneDown(GuitarString.E4));
 
 			BTuneDownCommand = new ReactiveCommand();
 			BTuneDownCommand.Subscribe(() => TuneDown(GuitarString.B));
@@ -70,7 +72,7 @@ namespace MyFirstMobileApp
 			AllTuneDownCommand.Subscribe(() => TuneDownAll());
 
 			E1TuneUpCommand = new ReactiveCommand();
-			E1TuneUpCommand.Subscribe(() => TuneUp(GuitarString.E1));
+			E1TuneUpCommand.Subscribe(() => TuneUp(GuitarString.E4));
 
 			BTuneUpCommand = new ReactiveCommand();
 			BTuneUpCommand.Subscribe(() => TuneUp(GuitarString.B));
@@ -91,9 +93,9 @@ namespace MyFirstMobileApp
 			AllTuneUpCommand.Subscribe(() => TuneUpAll());
 
 
-			E1TuneUpCommandText = new ReactiveProperty<string>(GetButtonDescription(GuitarString.E1));
+			E1TuneUpCommandText = new ReactiveProperty<string>(GetButtonDescription(GuitarString.E4));
 			Observable.Merge(E1TuneUpCommand, E1TuneDownCommand, AllTuneDownCommand, AllTuneUpCommand, ModelSubject)
-				.Subscribe(o => E1TuneUpCommandText.Value = GetButtonDescription(GuitarString.E1));
+				.Subscribe(o => E1TuneUpCommandText.Value = GetButtonDescription(GuitarString.E4));
 
 			BTuneUpCommandText = new ReactiveProperty<string>(GetButtonDescription(GuitarString.B));
 			Observable.Merge(BTuneUpCommand, BTuneDownCommand, AllTuneDownCommand, AllTuneUpCommand, ModelSubject)
@@ -132,7 +134,10 @@ namespace MyFirstMobileApp
 
 		private string GetButtonDescription(GuitarString guitarString)
 		{
-			return $"{Constants.DownSign} {ModelSubject.Value.FretBoard.GetStepsFromStandard(guitarString)}";
+			Key standardKey = Keys.GetKey(guitarString);
+			Key tunedKey = ModelSubject.Value.FretBoard.FretBoardLayout[guitarString][0].Key;
+
+			return $"{Constants.DownSign} {standardKey.GetStepsFromStandard(tunedKey)}";
 		}
 
 		private void TuneDown(GuitarString guitarString)

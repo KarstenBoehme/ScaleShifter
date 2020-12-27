@@ -1,14 +1,16 @@
-﻿using System.Linq;
+﻿using MyFirstMobileApp.Module.DataBase;
+using MyFirstMobileApp.Module.Fretboard;
+using System.Linq;
 using System.Reactive.Subjects;
 
-namespace MyFirstMobileApp
+namespace MyFirstMobileApp.Module
 {
 	public class Model
 	{
         public BehaviorSubject<Model> ModelSubject;
-        public FretBoard FretBoard { get; private set; }
-		public DataBaseHandler DataBaseHandler { get; private set; }
-		public FredBoardGrid FretBoardGrid { get; private set; }
+        public FretBoard FretBoard { get; }
+		public DataBaseHandler DataBaseHandler { get; }
+		public FredBoardGrid FretBoardGrid { get; }
 
         public Model()
         {
@@ -40,8 +42,9 @@ namespace MyFirstMobileApp
         {
             FretBoard.SetScale(FretBoard.Scale, FretBoard.Key);
             FretBoard.SetTuning(FretBoard.Tuning);
-            FretBoardGrid.UpdateCapo();
+
             UpdateFretboardUIGrid();
+            FretBoardGrid.UpdateCapo();
         }
     }
 }

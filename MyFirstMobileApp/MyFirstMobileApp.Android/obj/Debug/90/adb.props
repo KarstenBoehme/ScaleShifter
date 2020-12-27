@@ -1,2 +1,2 @@
-AdbTarget=-s CB5A2BPNVW
+AdbTarget=-s emulator-5554
 AdbOptions=

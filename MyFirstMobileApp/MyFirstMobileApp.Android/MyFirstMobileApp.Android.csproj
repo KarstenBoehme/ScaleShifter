@@ -39,6 +39,10 @@
     <BundleAssemblies>false</BundleAssemblies>
     <MandroidI18n />
     <PlatformTarget>x64</PlatformTarget>
+    <GenerateSerializationAssemblies>On</GenerateSerializationAssemblies>
+    <AndroidPackageFormat>apk</AndroidPackageFormat>
+    <AndroidUseAapt2>true</AndroidUseAapt2>
+    <AndroidCreatePackagePerAbi>false</AndroidCreatePackagePerAbi>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -53,6 +57,26 @@
     <EnableLLVM>false</EnableLLVM>
     <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
     <BundleAssemblies>false</BundleAssemblies>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <DebugType>portable</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <LangVersion>8.0</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <Optimize>true</Optimize>
+    <DebugType>portable</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <LangVersion>8.0</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />
@@ -123,6 +147,192 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\FretBoardColorless23.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\1_a.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\1_asharp.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\1_b.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\2_a.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\2_asharp.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\2_b.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\2_c.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\2_csharp.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\2_d.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\2_dsharp.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\2_e.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\2_f.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\2_fsharp.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\2_g.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\2_gsharp.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\3_a.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\3_asharp.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\3_b.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\3_c.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\3_csharp.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\3_d.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\3_dsharp.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\3_e.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\3_f.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\3_fsharp.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\3_g.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\3_gsharp.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\4_a.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\4_asharp.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\4_b.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\4_c.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\4_csharp.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\4_d.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\4_dsharp.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\4_e.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\4_f.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\4_fsharp.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\4_g.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\4_gsharp.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\5_a.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\5_asharp.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\5_b.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\5_c.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\5_csharp.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\5_d.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\5_dsharp.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\5_e.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\5_f.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\5_fsharp.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\5_g.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\5_gsharp.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\6_a.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\6_asharp.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\6_c.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\6_csharp.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\6_d.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\6_dsharp.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\6_e.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\6_f.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\6_fsharp.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\6_g.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\6_gsharp.mid" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>

@@ -4,7 +4,9 @@
 	xmlns="http://xamarin.com/schemas/2014/forms"
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 	xmlns:local="clr-namespace:MyFirstMobileApp"
-	xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup">
+	xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+	xmlns:sett="clr-namespace:MyFirstMobileApp.Module">
+
 	<ContentPage.Resources>
 		<Style x:Key="SettingButtonStyle" TargetType="Button">
 			<Setter Property="CornerRadius" Value="0" />
@@ -31,29 +33,29 @@
 						<Label Text="display notes:" />
 						<RadioButton
 							GroupName="displayNotes"
-							IsChecked="{Binding Path=DisplayingSettings.Value, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static local:KeyDisplayingSettings.NONE}}"
+							IsChecked="{Binding Path=DisplayingSettings.Value, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static sett:KeyDisplayingSettings.NONE}}"
 							Text="none" />
 						<RadioButton
 							GroupName="displayNotes"
-							IsChecked="{Binding Path=DisplayingSettings.Value, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static local:KeyDisplayingSettings.SCALE}}"
+							IsChecked="{Binding Path=DisplayingSettings.Value, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static sett:KeyDisplayingSettings.SCALE}}"
 							Text="on scale" />
 						<RadioButton
 							GroupName="displayNotes"
-							IsChecked="{Binding Path=DisplayingSettings.Value, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static local:KeyDisplayingSettings.ALL}}"
+							IsChecked="{Binding Path=DisplayingSettings.Value, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static sett:KeyDisplayingSettings.ALL}}"
 							Text="all" />
 
 						<Label Text="semitone:" />
 						<RadioButton
 							GroupName="semitone"
-							IsChecked="{Binding Path=SemiSteps.Value, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static local:SemiStepSettings.SHARP}}"
+							IsChecked="{Binding Path=SemiSteps.Value, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static sett:SemiStepSettings.SHARP}}"
 							Text="♯" />
 						<RadioButton
 							GroupName="semitone"
-							IsChecked="{Binding Path=SemiSteps.Value, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static local:SemiStepSettings.FLAT}}"
+							IsChecked="{Binding Path=SemiSteps.Value, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static sett:SemiStepSettings.FLAT}}"
 							Text="♭" />
 						<RadioButton
 							GroupName="semitone"
-							IsChecked="{Binding Path=SemiSteps.Value, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static local:SemiStepSettings.INTERVAL}}"
+							IsChecked="{Binding Path=SemiSteps.Value, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static sett:SemiStepSettings.INTERVAL}}"
 							Text="interval" />
 
 						<Label Text="capo fret position:" />

@@ -63,5 +63,10 @@ namespace MyFirstMobileApp.Droid
             if (e.PropertyName == FastFixedSizeLabel.CornerRadiusProperty.PropertyName)
                 Control.Invalidate();
         }
-    }
+
+		public bool OnTouch(Android.Views.View v, MotionEvent e)
+		{
+			throw new System.NotImplementedException();
+		}
+	}
 }

@@ -1,4 +1,6 @@
-﻿using Rg.Plugins.Popup.Services;
+﻿using MyFirstMobileApp.Module;
+using MyFirstMobileApp.ViewModels;
+using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;

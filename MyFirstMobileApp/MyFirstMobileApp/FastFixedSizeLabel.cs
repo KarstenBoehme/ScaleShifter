@@ -1,10 +1,13 @@
-﻿using System;
+﻿using MyFirstMobileApp.Module.KeyPlayer;
+using System;
+using System.Threading.Tasks;
 using Xamarin.Forms;
+using static Android.Views.View;
 
 namespace MyFirstMobileApp
 {
 	public class FastFixedSizeLabel : Label
-	{
+    {
         public static readonly BindableProperty TextProperty = 
             BindableProperty.Create("Text", typeof(string), typeof(FastFixedSizeLabel), "");
 
@@ -20,16 +23,29 @@ namespace MyFirstMobileApp
         public static readonly BindableProperty CornerRadiusProperty =
              BindableProperty.Create("CornerRadius", typeof(float), typeof(FastFixedSizeLabel));
 
-
         public readonly double FixedWidth;
-
         public readonly double FixedHeight;
 
+        //does nothing on default
+        public Action OnTouchAction { get; set; } = () => { };
 
         public FastFixedSizeLabel(double width, double height)
         {
             FixedWidth = width;
             FixedHeight = height;
+
+            TapGestureRecognizer singleTap = new TapGestureRecognizer()
+            {
+                NumberOfTapsRequired = 1
+            };
+
+            this.GestureRecognizers.Add(singleTap);
+            singleTap.Tapped += Label_Clicked;
+        }
+
+        private void Label_Clicked(object sender, EventArgs e)
+        {
+           OnTouchAction();
         }
 
         public Color TextColor
@@ -101,5 +117,6 @@ namespace MyFirstMobileApp
         {
             return new SizeRequest(new Size(FixedWidth, FixedHeight));
         }
+
     }
 }

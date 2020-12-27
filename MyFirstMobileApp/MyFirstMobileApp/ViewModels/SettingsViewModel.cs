@@ -1,10 +1,11 @@
-﻿using Reactive.Bindings;
+﻿using MyFirstMobileApp.Module;
+using Reactive.Bindings;
 using System;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using Xamarin.Essentials;
 
-namespace MyFirstMobileApp
+namespace MyFirstMobileApp.ViewModels
 {
 	public class SettingsViewModel : ReactiveUI.ReactiveObject
 	{

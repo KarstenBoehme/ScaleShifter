@@ -1,7 +1,9 @@
-﻿using System.Linq;
+﻿using MyFirstMobileApp.Module;
+using MyFirstMobileApp.Module.Properties;
+using System.Linq;
 using Xamarin.Essentials;
 
-namespace MyFirstMobileApp
+namespace MyFirstMobileApp.Module
 {
 	public static class AppPreferences
 	{
@@ -33,7 +35,7 @@ namespace MyFirstMobileApp
 			semitoneSetting = Preferences.Get(SemitonePreference, SemiStepSettings.SHARP.ToString());
 			Settings.SemiStepSettings = EnumCollectionCreator<SemiStepSettings>.GetEnumCollection().Single(s => s.ToString() == semitoneSetting);
 
-			noteDisplaySetting = Preferences.Get(NoteDisplayPreference, KeyDisplayingSettings.ALL.ToString());
+			noteDisplaySetting = Preferences.Get(NoteDisplayPreference, KeyDisplayingSettings.SCALE.ToString());
 			Settings.KeyDisplayingSettings = EnumCollectionCreator<KeyDisplayingSettings>.GetEnumCollection().Single(s => s.ToString() == noteDisplaySetting);
 
 			tuningIndex = Preferences.Get(TuningPreference, 1);
@@ -41,7 +43,7 @@ namespace MyFirstMobileApp
 									 model.DataBaseHandler.TuningCollection.Single(t => t.Index == tuningIndex) :
 									 model.DataBaseHandler.TuningCollection.Where(t => t.Notes.Equals(Constants.StandardTuningNotes)).First();
 			key = Preferences.Get(KeyPreference, Key.C.ToString());
-			scaleIndex = Preferences.Get(ScalePreference, 1);
+			scaleIndex = Preferences.Get(ScalePreference, 8 /*Major Pentatonic*/);
 			capoPos = Preferences.Get(CapoPreference, 0);
 
 			Tuning = (Tuning)tuning.Clone();

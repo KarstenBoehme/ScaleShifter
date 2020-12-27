@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Rg.Plugins.Popup.Services;
+using MyFirstMobileApp.Module;
+using MyFirstMobileApp.ViewModels;
 
 namespace MyFirstMobileApp
 {

@@ -1069,6 +1069,7 @@
         ".signature.p7s",
         "LICENSE/LICENSE",
         "lib/monoandroid90/ReactiveUI.dll",
+        "lib/monoandroid90/ReactiveUI.dll.mdb",
         "lib/monoandroid90/ReactiveUI.pdb",
         "lib/monoandroid90/ReactiveUI.xml",
         "lib/net461/ReactiveUI.dll",

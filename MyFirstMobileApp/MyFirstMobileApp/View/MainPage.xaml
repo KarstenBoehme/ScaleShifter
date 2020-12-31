@@ -10,18 +10,49 @@
 		Orientation="Vertical"
 		VerticalOptions="Center">
 
-		<StackLayout Orientation="Horizontal">
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto" />
+				<ColumnDefinition Width="Auto" />
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="Auto" />
+			</Grid.ColumnDefinitions>
+
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+			</Grid.RowDefinitions>
+
 			<Button
+				Grid.Row="0"
+				Grid.Column="0"
+				Command="{Binding StrumCommand}"
+				CornerRadius="10"
+				HeightRequest="40"
+				Text="s"
+				WidthRequest="40" />
+			<Button
+				Grid.Row="0"
+				Grid.Column="1"
+				Clicked="OnOpenTuner"
+				CornerRadius="10"
+				HeightRequest="40"
+				Text="t"
+				WidthRequest="40" />
+			<Label
+				Grid.Row="0"
+				Grid.Column="2"
+				Padding="0"
+				FontSize="Body"
+				Text="{Binding GeneralSettings.Value}" />
+			<Button
+				Grid.Row="0"
+				Grid.Column="3"
 				Clicked="OnOpenSettings"
 				CornerRadius="10"
 				HeightRequest="40"
 				Text="{Binding SettingsCommandText}"
 				WidthRequest="40" />
-			<Label
-				Padding="0"
-				FontSize="Body"
-				Text="{Binding GeneralSettings.Value}" />
-		</StackLayout>
+		</Grid>
 
 		<Grid RowSpacing="5">
 			<Grid.ColumnDefinitions>
@@ -87,7 +118,8 @@
 				Grid.RowSpan="7"
 				Grid.Column="1"
 				HorizontalScrollBarVisibility="Never"
-				Orientation="Horizontal">
+				Orientation="Horizontal"
+				ScaleX="{Binding Orientation.Value}">
 				<ContentView Content="{Binding FretBoardGrid}" />
 			</ScrollView>
 

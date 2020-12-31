@@ -17,6 +17,7 @@ namespace MyFirstMobileApp
         private KeyListEditorPage _ListEditorKey;
         private ScaleListEditorPage _ListEditorScale;
         private SettingsPage _SettingsPage;
+        private TunerPage _TunerPage;
         public MainPage(Model model)
         {
             InitializeComponent();
@@ -26,6 +27,7 @@ namespace MyFirstMobileApp
             _ListEditorKey = new KeyListEditorPage(model);
             _ListEditorScale = new ScaleListEditorPage(model);
             _SettingsPage = new SettingsPage(model);
+            _TunerPage = new TunerPage(model);
         } 
 
         private async void OnOpenTuning(object sender, EventArgs e)
@@ -45,6 +47,10 @@ namespace MyFirstMobileApp
         private async void OnOpenSettings(object sender, EventArgs e)
         {
             await PopupNavigation.Instance.PushAsync(_SettingsPage);
+        }
+        private async void OnOpenTuner(object sender, EventArgs e)
+        {
+            await PopupNavigation.Instance.PushAsync(_TunerPage);
         }
     }
 }

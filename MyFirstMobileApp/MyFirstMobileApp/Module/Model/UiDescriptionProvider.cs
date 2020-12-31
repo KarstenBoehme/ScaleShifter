@@ -19,7 +19,7 @@ namespace MyFirstMobileApp.Module
 			{
 				return "±0";
 			}
-			else if (listOfAllNotesReorderd.IndexOf(tunedKey) <= 4)
+			else if (listOfAllNotesReorderd.IndexOf(tunedKey) <= Constants.MaxUpTuneSteps)
 			{
 				return $"+{listOfAllNotesReorderd.IndexOf(tunedKey)}";
 			}

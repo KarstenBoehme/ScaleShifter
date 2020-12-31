@@ -15,7 +15,10 @@ namespace MyFirstMobileApp.ViewModels
 	{
 		private BehaviorSubject<Model> ModelSubject;
 		public Grid FretBoardGrid => ModelSubject.Value.FretBoardGrid.UIGrid;
-			
+
+		public ReactiveCommand StrumCommand { get; }
+		public ReactiveProperty<int> Orientation { get; }
+
 		public ReactiveCommand E1TuneDownCommand { get; }
 		public ReactiveCommand BTuneDownCommand { get; }
 		public ReactiveCommand GTuneDownCommand { get; }
@@ -49,6 +52,12 @@ namespace MyFirstMobileApp.ViewModels
 		public MainViewModel(Model model)
 		{
 			ModelSubject = model.ModelSubject;
+
+			StrumCommand = new ReactiveCommand();
+			StrumCommand.Subscribe(async () => await KeyPlayer.Strum(ModelSubject.Value.FretBoard.FretBoardLayout, ModelSubject.Value.FretBoard.CapoPosition));
+
+			Orientation = new ReactiveProperty<int>(1);
+			ModelSubject.Subscribe(m => Orientation.Value = Settings.FretboardOrientationSettings == FretboardOrientationSettings.RIGHT_HAND ? 1 : -1);
 
 			E1TuneDownCommand = new ReactiveCommand();
 			E1TuneDownCommand.Subscribe(() => TuneDown(GuitarString.E4));

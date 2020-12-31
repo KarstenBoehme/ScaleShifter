@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage
+	x:Class="MyFirstMobileApp.TunerPage"
+	xmlns="http://xamarin.com/schemas/2014/forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup">
+
+	<StackLayout
+		Padding="30"
+		HorizontalOptions="FillAndExpand"
+		VerticalOptions="FillAndExpand">
+		<Frame
+			Padding="0"
+			BorderColor="Black"
+			CornerRadius="10">
+			<StackLayout BackgroundColor="White">
+				<Label Style="{StaticResource HeaderLabelStyle}" Text="Tuner" />
+				
+				<Label
+					x:Name="FrqLabel"
+					Padding="15"
+					FontSize="Large"
+					HorizontalOptions="Center"
+					Text="{Binding Frequency.Value}" />
+				
+				<Button Clicked="OnClose" Text="Close" />
+			</StackLayout>
+		</Frame>
+	</StackLayout>
+</pages:PopupPage>
+

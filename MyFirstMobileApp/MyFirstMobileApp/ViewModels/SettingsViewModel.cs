@@ -13,6 +13,7 @@ namespace MyFirstMobileApp.ViewModels
 
 		public ReactiveProperty<KeyDisplayingSettings> DisplayingSettings { get; }
 		public ReactiveProperty<SemiStepSettings> SemiSteps { get; }
+		public ReactiveProperty<FretboardOrientationSettings> FretboardOrientation { get; }
 
 		public ReactiveProperty<int> CapoPosition { get; }
 		public ReactiveCommand CapoPlusCommand { get; }
@@ -27,6 +28,7 @@ namespace MyFirstMobileApp.ViewModels
 
 			DisplayingSettings = new ReactiveProperty<KeyDisplayingSettings>(Settings.KeyDisplayingSettings);
 			SemiSteps = new ReactiveProperty<SemiStepSettings>(Settings.SemiStepSettings);
+			FretboardOrientation = new ReactiveProperty<FretboardOrientationSettings>(Settings.FretboardOrientationSettings);
 			CapoPosition = new ReactiveProperty<int>(ModelSubject.Value.FretBoard.CapoPosition);
 			CapoMinusCommand = new ReactiveCommand();
 			CapoPlusCommand = new ReactiveCommand();
@@ -46,12 +48,13 @@ namespace MyFirstMobileApp.ViewModels
 			});
 
 			ConfirmCommand
-				.WithLatestFrom(Observable.CombineLatest(CapoPosition, DisplayingSettings, SemiSteps, (capo, display, semi) => (capo, display, semi)), (_, t) => t)
+				.WithLatestFrom(Observable.CombineLatest(CapoPosition, DisplayingSettings, SemiSteps, FretboardOrientation, (capo, display, semi, orient) => (capo, display, semi, orient)), (_, t) => t)
 				.Subscribe(tuple =>
 			{
 				ModelSubject.Value.FretBoard.CapoPosition = tuple.capo;
 				Settings.KeyDisplayingSettings = tuple.display;
 				Settings.SemiStepSettings = tuple.semi;
+				Settings.FretboardOrientationSettings = tuple.orient;
 				ModelSubject.Value.RefreshModel();
 			});
 
@@ -59,6 +62,7 @@ namespace MyFirstMobileApp.ViewModels
 			{
 				DisplayingSettings.Value = Settings.KeyDisplayingSettings;
 				SemiSteps.Value = Settings.SemiStepSettings;
+				FretboardOrientation.Value = Settings.FretboardOrientationSettings;
 				CapoPosition.Value = ModelSubject.Value.FretBoard.CapoPosition;
 			});
 		}

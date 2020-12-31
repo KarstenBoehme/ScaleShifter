@@ -18,9 +18,16 @@ namespace MyFirstMobileApp.Module
 		INTERVAL
 	}
 
+	public enum FretboardOrientationSettings
+	{
+		RIGHT_HAND,
+		LEFT_HAND,
+	}
+
 	public static class Settings
 	{
 		public static KeyDisplayingSettings KeyDisplayingSettings { get; set;}
 		public static SemiStepSettings SemiStepSettings { get; set; }
+		public static FretboardOrientationSettings FretboardOrientationSettings { get; set; }
 	}
 }

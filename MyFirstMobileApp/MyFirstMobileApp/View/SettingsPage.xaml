@@ -81,6 +81,16 @@
 								Style="{StaticResource UpDownButtonStyle}"
 								Text="+" />
 						</Grid>
+
+						<Label Text="orientation:" />
+						<RadioButton
+							GroupName="orientation"
+							IsChecked="{Binding Path=FretboardOrientation.Value, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static sett:FretboardOrientationSettings.RIGHT_HAND}}"
+							Text="right handed" />
+						<RadioButton
+							GroupName="orientation"
+							IsChecked="{Binding Path=FretboardOrientation.Value, Converter={StaticResource ComparisonConverter}, ConverterParameter={x:Static sett:FretboardOrientationSettings.LEFT_HAND}}"
+							Text="left handed" />
 					</StackLayout>
 				</ScrollView>
 

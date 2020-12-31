@@ -30,13 +30,19 @@ namespace MyFirstMobileApp.Module
         private static string NoteDisplayPreference => "NoteDisplay";
         private static string noteDisplaySetting;
 
-        public static void Load(Model model)
+		private static string FretboardOrientationPreference => "FretboardOrientation";
+		private static string fretboardOrientationSetting;
+
+		public static void Load(Model model)
 		{
 			semitoneSetting = Preferences.Get(SemitonePreference, SemiStepSettings.SHARP.ToString());
 			Settings.SemiStepSettings = EnumCollectionCreator<SemiStepSettings>.GetEnumCollection().Single(s => s.ToString() == semitoneSetting);
 
 			noteDisplaySetting = Preferences.Get(NoteDisplayPreference, KeyDisplayingSettings.SCALE.ToString());
 			Settings.KeyDisplayingSettings = EnumCollectionCreator<KeyDisplayingSettings>.GetEnumCollection().Single(s => s.ToString() == noteDisplaySetting);
+
+			fretboardOrientationSetting = Preferences.Get(FretboardOrientationPreference, FretboardOrientationSettings.RIGHT_HAND.ToString());
+			Settings.FretboardOrientationSettings = EnumCollectionCreator<FretboardOrientationSettings>.GetEnumCollection().Single(s => s.ToString() == fretboardOrientationSetting);
 
 			tuningIndex = Preferences.Get(TuningPreference, 1);
 			Tuning tuning = model.DataBaseHandler.TuningCollection.Any(t => t.Index == tuningIndex) ?
@@ -65,8 +71,9 @@ namespace MyFirstMobileApp.Module
         {
             Preferences.Set(NoteDisplayPreference, Settings.KeyDisplayingSettings.ToString());
             Preferences.Set(SemitonePreference, Settings.SemiStepSettings.ToString());
+			Preferences.Set(FretboardOrientationPreference, Settings.FretboardOrientationSettings.ToString());
 
-            Preferences.Set(ScalePreference, model.FretBoard.Scale.Index);
+			Preferences.Set(ScalePreference, model.FretBoard.Scale.Index);
             Preferences.Set(KeyPreference, model.FretBoard.Key.ToString());
             Preferences.Set(TuningPreference, model.FretBoard.Tuning.Index);
             Preferences.Set(CapoPreference, model.FretBoard.CapoPosition);

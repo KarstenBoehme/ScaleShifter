@@ -27,12 +27,12 @@ namespace MyFirstMobileApp.Module.Fretboard
 		private static readonly Dictionary<GuitarString, List<int>> OctaveLayout =
 			new Dictionary<GuitarString, List<int>>()
 			{
-				{ GuitarString.E4, new List<int>()  { 3, 3, 3, 4, 4, 4, 4, /*E:*/ 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, /*E:*/ 5, 5, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, /*E:*/ 6, 6, 6, 6} },
-				{ GuitarString.B, new List<int>()   { 3, 3, 3, 3, 3, 3, 3, /*B:*/ 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, /*B:*/ 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, /*B:*/ 5, 6, 6, 6} },
-				{ GuitarString.G, new List<int>()   { 3, 3, 3, 3, 3, 3, 3, /*G:*/ 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, /*G:*/ 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, /*G:*/ 5, 5, 5, 5} },
-				{ GuitarString.D, new List<int>()   { 2, 2, 2, 2, 2, 3, 3, /*D:*/ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, /*D:*/ 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, /*D:*/ 5, 5, 5, 5} },
-				{ GuitarString.A, new List<int>()   { 2, 2, 2, 2, 2, 2, 2, /*A:*/ 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, /*A:*/ 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, /*A:*/ 4, 4, 4, 5} },
-				{ GuitarString.E, new List<int>()   { 1, 1, 1, 2, 2, 2, 2, /*E:*/ 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, /*E:*/ 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, /*E:*/ 4, 4, 4, 4} },
+				{ GuitarString.E4, new List<int>()  {3, 3, 3, 3, 4, 4, 4, 4, /*E:*/ 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, /*E:*/ 5, 5, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, /*E:*/ 6, 6, 6, 6} },
+				{ GuitarString.B, new List<int>()   {3, 3, 3, 3, 3, 3, 3, 3, /*B:*/ 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, /*B:*/ 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, /*B:*/ 5, 6, 6, 6} },
+				{ GuitarString.G, new List<int>()   {2, 3, 3, 3, 3, 3, 3, 3, /*G:*/ 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, /*G:*/ 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, /*G:*/ 5, 5, 5, 5} },
+				{ GuitarString.D, new List<int>()   {2, 2, 2, 2, 2, 2, 3, 3, /*D:*/ 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, /*D:*/ 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, /*D:*/ 5, 5, 5, 5} },
+				{ GuitarString.A, new List<int>()   {2, 2, 2, 2, 2, 2, 2, 2, /*A:*/ 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, /*A:*/ 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, /*A:*/ 4, 4, 4, 5} },
+				{ GuitarString.E, new List<int>()   {1, 1, 1, 1, 2, 2, 2, 2, /*E:*/ 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, /*E:*/ 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, /*E:*/ 4, 4, 4, 4} },
 			};
 
 		public FretBoard()
@@ -137,7 +137,7 @@ namespace MyFirstMobileApp.Module.Fretboard
 		{
 			List<FretBoardPosition> fretBoardPositionsOnString = this.FretBoardLayout[guitarString];
 			int offsetFromStandard = GetStepsFromStandard(Keys.GetKey(guitarString), fretBoardPositionsOnString[0].Key);
-			List<int> octaveRange = OctaveLayout[guitarString].Skip(7 + offsetFromStandard).Take(Constants.NumberOfFrets).ToList();
+			List<int> octaveRange = OctaveLayout[guitarString].Skip(Constants.MaxDownTuneSteps + offsetFromStandard).Take(Constants.NumberOfFrets).ToList();
 
 			for (int i = 0; i < Constants.NumberOfFrets; i++)
 			{
@@ -153,7 +153,7 @@ namespace MyFirstMobileApp.Module.Fretboard
 
 			int offset = listOfAllNotesReorderd.IndexOf(tunedKey);
 
-			return offset <= 4 ? offset : offset - listOfAllNotesReorderd.Count;
+			return offset <= Constants.MaxUpTuneSteps ? offset : offset - listOfAllNotesReorderd.Count;
 		}
 	}
 }

@@ -14,5 +14,10 @@ namespace MyFirstMobileApp.Module
 		public static int NumberOfFrets = 23 + 1;
 
 		public static string StandardTuningNotes = "EADGBE";
+
+		public static int StrummingPauseInMs = 300;
+
+		public static int MaxDownTuneSteps = 8;
+		public static int MaxUpTuneSteps = NumberOfNotes - MaxDownTuneSteps - 1;
 	}
 }

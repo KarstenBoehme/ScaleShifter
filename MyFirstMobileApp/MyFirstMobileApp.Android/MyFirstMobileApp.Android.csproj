@@ -334,10 +334,37 @@
   <ItemGroup>
     <AndroidAsset Include="Assets\6_gsharp.mid" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\1_c.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\1_csharp.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\1_d.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\1_dsharp.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\1_e.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\1_f.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\1_fsharp.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\1_g.mid" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\1_gsharp.mid" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties XamarinHotReloadDebuggerTimeoutExceptionMyFirstMobileAppAndroidHideInfoBar="True" TriggeredFromHotReload="False" />
+      <UserProperties TriggeredFromHotReload="False" XamarinHotReloadDebuggerTimeoutExceptionMyFirstMobileAppAndroidHideInfoBar="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

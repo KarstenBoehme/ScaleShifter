@@ -1,5 +1,6 @@
 ﻿using MyFirstMobileApp.Module.DataBase;
 using MyFirstMobileApp.Module.Fretboard;
+using MyFirstMobileApp.Module.Tuner;
 using System.Linq;
 using System.Reactive.Subjects;
 
@@ -45,6 +46,7 @@ namespace MyFirstMobileApp.Module
 
             UpdateFretboardUIGrid();
             FretBoardGrid.UpdateCapo();
+            FretBoardGrid.UpdateFretbordOrientation();
         }
     }
 }

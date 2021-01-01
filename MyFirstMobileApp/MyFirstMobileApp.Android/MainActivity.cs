@@ -34,13 +34,11 @@ namespace MyFirstMobileApp.Droid
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
 
-            GetAudioRecorderPermission();
+             GetAudioRecorderPermission();
             LoadApplication(new App());
 
             Window.SetStatusBarColor(Android.Graphics.Color.ParseColor("#2E8364"));
             Window.SetTitleColor(Android.Graphics.Color.ParseColor("#2E8364"));
-
-
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {
@@ -49,22 +47,18 @@ namespace MyFirstMobileApp.Droid
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
 
-
         void GetAudioRecorderPermission()
         {
             const int RequestLocationId = 0;
 
-            //if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.RecordAudio) != (int)Permission.Granted)
-            //{
-            //    View view = this.FindViewById(Android.Resource.Id.Content);
-            //    Snackbar.Make(view, "Microphone access is required for guitar tuner.",
-            //        Snackbar.LengthIndefinite)
-            //        .SetAction("OK", v => RequestPermissions(new string[] { Manifest.Permission.RecordAudio }, RequestLocationId))
-            //        .Show();
-            //    return;
-            //}
+            bool sdk23 = (int)Build.VERSION.SdkInt >= 23;
+            bool permissionDenied = ContextCompat.CheckSelfPermission(this, Manifest.Permission.RecordAudio) == Permission.Denied;
 
-            RequestPermissions(new string[] { Manifest.Permission.RecordAudio }, RequestLocationId);
+            if (sdk23 && permissionDenied)
+            {
+                //TODO logger
+                RequestPermissions(new string[] { Manifest.Permission.RecordAudio }, RequestLocationId);
+            }
         }
     }
 }

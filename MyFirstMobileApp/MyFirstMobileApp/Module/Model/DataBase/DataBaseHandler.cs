@@ -10,13 +10,16 @@ namespace MyFirstMobileApp.Module.DataBase
 	{
 		private DataBase<Scale> ScaleDataBase;
 		private DataBase<Tuning> TuningDataBase;
+		private DataBase<Freq> FrequencyDataBase;
 
 		public ObservableCollection<Scale> ScaleCollection;
 		public ObservableCollection<Tuning> TuningCollection;
+		public ObservableCollection<Freq> FrequencyCollection;
 		public DataBaseHandler()
 		{
 			ScaleCollection = GetScalesFromDataBaseAsync();
 			TuningCollection = GetTuningsFromDataBaseAsync();
+			FrequencyCollection = GetFrequenciesFromDataBaseAsync();
 		}
 
 		private ObservableCollection<Scale> GetScalesFromDataBaseAsync()
@@ -31,6 +34,13 @@ namespace MyFirstMobileApp.Module.DataBase
 			TuningDataBase = new DataBase<Tuning>("SQTunings.db", SQLiteOpenFlags.ReadWrite);
 			var tunings = Task.Run(async () => await TuningDataBase.GetItemsAsync()).Result;
 			return new ObservableCollection<Tuning>(tunings.OrderBy(s => s.Notes));
+		}
+
+		private ObservableCollection<Freq> GetFrequenciesFromDataBaseAsync()
+		{
+			FrequencyDataBase = new DataBase<Freq>("SQFrequency.db", SQLiteOpenFlags.ReadWrite);
+			var freqs = Task.Run(async () => await FrequencyDataBase.GetItemsAsync()).Result;
+			return new ObservableCollection<Freq>(freqs);
 		}
 
 		public void AddTuningToDB(Tuning newTuning)

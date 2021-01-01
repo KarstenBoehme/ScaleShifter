@@ -1,14 +1,7 @@
 ﻿using MyFirstMobileApp.Module;
 using MyFirstMobileApp.ViewModels;
-using ReactiveUI;
 using Rg.Plugins.Popup.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace MyFirstMobileApp
@@ -16,10 +9,23 @@ namespace MyFirstMobileApp
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class TunerPage : Rg.Plugins.Popup.Pages.PopupPage
 	{
+		private TunerViewModel ViewModel { get; set; }
 		public TunerPage(Model model)
 		{
 			InitializeComponent();
-			BindingContext = new TunerViewModel(model);
+
+			ViewModel = new TunerViewModel(model);
+			BindingContext = ViewModel;
+		}
+
+		protected override void OnAppearing()
+		{
+			ViewModel.IsActivatedSubject.OnNext(true);
+		}
+
+		protected override void OnDisappearing()
+		{
+			ViewModel.IsActivatedSubject.OnNext(false);
 		}
 
 		private async void OnClose(object sender, EventArgs e)

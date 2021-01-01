@@ -20,6 +20,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Module\Model\Tuner\FrequencyInfoSource.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Resources\raw\edrecksfile.mid" />
     <None Remove="Resources\scales.sql" />
     <None Remove="Resources\SQScales.db" />

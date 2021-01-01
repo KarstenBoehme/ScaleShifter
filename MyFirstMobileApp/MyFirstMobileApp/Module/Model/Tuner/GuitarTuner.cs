@@ -1,35 +1,30 @@
-﻿using Android;
-using Android.App;
-using Android.Content.PM;
-using Android.Media;
-using Android.Support.V4.App;
-using Android.Support.V4.Content;
-using Android.Support.V7.App;
+﻿using Android.Media;
 using System;
 using System.Reactive.Subjects;
-using System.Threading.Tasks;
 
 namespace MyFirstMobileApp.Module.Tuner
 {
 	public class GuitarTuner
 	{
+		private AudioRecord audRecorder;
 		private readonly double MinFreq = 40;		//E1
 		private readonly double MaxFreq = 1760;		//A6
 		private readonly int SampleRate = 44100;
+		private readonly double Threshold = 0.009;
+		private short[] audioBuffer = new short[10000];
 
-		public AudioRecord audRecorder;
-		public BehaviorSubject<double> Frequency;
+		public BehaviorSubject<double> Frequency { get; set; }
+		public BehaviorSubject<double> Buffer { get; set; }
 
 		public GuitarTuner()
 		{
 			Frequency = new BehaviorSubject<double>(0);
+			Buffer = new BehaviorSubject<double>(0);
 		}
 
 		public void RecordAudio()
 		{
-			byte[] audioBuffer = new byte[100000];
-			audRecorder = new AudioRecord(AudioSource.Mic, SampleRate, ChannelIn.Mono, Android.Media.Encoding.Pcm16bit, audioBuffer.Length);
-
+			audRecorder = new AudioRecord(AudioSource.Mic, SampleRate, ChannelIn.Mono, Encoding.Pcm16bit, audioBuffer.Length);
 			audRecorder.StartRecording();
 
 			while (true)
@@ -37,13 +32,12 @@ namespace MyFirstMobileApp.Module.Tuner
 				try
 				{
 					audRecorder.Read(audioBuffer, 0, audioBuffer.Length);
-					double[] _audioBuffer = BytesToDouble(audioBuffer);
+					double[] _audioBuffer = ShortToDouble(audioBuffer);
+					bool isSignal = IsSignal(_audioBuffer);
 
-					bool isWithinTh = IsWithinThreshold(_audioBuffer, 1000, 65000);
-
-					if(isWithinTh)
+					if(isSignal)
 					{
-						double freq = FrequencyUtils.FindFundamentalFrequency(BytesToDouble(audioBuffer), SampleRate, MinFreq, MaxFreq);
+						double freq = FrequencyUtils.FindFundamentalFrequency(_audioBuffer, SampleRate, MinFreq, MaxFreq);
 						Frequency.OnNext(Math.Round(freq, 2));
 					}
 					else
@@ -57,26 +51,33 @@ namespace MyFirstMobileApp.Module.Tuner
 				}
 			}
 		}
-		private static double[] BytesToDouble(byte[] bytes)
+
+		public void StopRecording()
 		{
-			double[] floats = new double[bytes.Length / 2];
-			for (int i = 0; i < bytes.Length; i += 2)
+			if (audRecorder != null)
+				audRecorder.Release();
+		}
+		private double[] ShortToDouble(short[] shorts)
+		{
+			double[] _audioBuffer = new double[shorts.Length];
+			for (int i = 0; i < _audioBuffer.Length; i++)
 			{
-				floats[i / 2] = bytes[i] | (bytes[i + 1] << 8);
+				_audioBuffer[i] = shorts[i] / 32768.0;
 			}
-			return floats;
+			return _audioBuffer;
 		}
 
-		private bool IsWithinThreshold(double[] buffer, int minThreshold, int maxThreshold)
+		private bool IsSignal(double[] buffer)
 		{
 			for (int index = 0; index < buffer.Length; index++)
 			{
-				if (Math.Abs(buffer[index]) > minThreshold && Math.Abs(buffer[index]) < maxThreshold)
+				Buffer.OnNext(buffer[index]);
+				if (Math.Abs(buffer[index]) > Threshold)
 				{
 					return true;
 				}
 			}
-			return false; //not found
+			return false; //not signal
 		}
 	}
 }

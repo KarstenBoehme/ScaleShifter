@@ -15,14 +15,25 @@
 			CornerRadius="10">
 			<StackLayout BackgroundColor="White">
 				<Label Style="{StaticResource HeaderLabelStyle}" Text="Tuner" />
-				
+
 				<Label
-					x:Name="FrqLabel"
+					Padding="15"
+					FontSize="Large"
+					HorizontalOptions="Center"
+					Text="{Binding Note.Value}" />
+
+				<Label
 					Padding="15"
 					FontSize="Large"
 					HorizontalOptions="Center"
 					Text="{Binding Frequency.Value}" />
-				
+
+				<Label
+					Padding="15"
+					FontSize="Large"
+					HorizontalOptions="Center"
+					Text="{Binding Buffer.Value}" />
+
 				<Button Clicked="OnClose" Text="Close" />
 			</StackLayout>
 		</Frame>

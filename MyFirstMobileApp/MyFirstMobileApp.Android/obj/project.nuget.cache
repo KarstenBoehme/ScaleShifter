@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "bwYtNyJOL6WqSH6APuQyCJ9dwJbuHHTx3M8VhlH32lPE7SLKCWA6t/w9BcFbX2srQXuQTuk2/QlReuaKGGCwVg==",
+  "dgSpecHash": "ExvLeleLNgwbiVGX/nYT1jgxHdMlVoqBeUBlFiBxgSW57lzOjA5gH3hzNG1n5+TyG/LAEakcwIx6WU/68txa2Q==",
   "success": true,
   "projectFilePath": "C:\\Users\\Karsten\\source\\repos\\MyFirstMobileApp\\MyFirstMobileApp\\MyFirstMobileApp.Android\\MyFirstMobileApp.Android.csproj",
   "expectedPackageFiles": [
@@ -9,6 +9,9 @@
     "C:\\Users\\Karsten\\.nuget\\packages\\reactiveproperty.core\\7.5.1\\reactiveproperty.core.7.5.1.nupkg.sha512",
     "C:\\Users\\Karsten\\.nuget\\packages\\reactiveui\\12.1.5\\reactiveui.12.1.5.nupkg.sha512",
     "C:\\Users\\Karsten\\.nuget\\packages\\rg.plugins.popup\\2.0.0.7\\rg.plugins.popup.2.0.0.7.nupkg.sha512",
+    "C:\\Users\\Karsten\\.nuget\\packages\\skiasharp\\2.80.2\\skiasharp.2.80.2.nupkg.sha512",
+    "C:\\Users\\Karsten\\.nuget\\packages\\skiasharp.views\\2.80.2\\skiasharp.views.2.80.2.nupkg.sha512",
+    "C:\\Users\\Karsten\\.nuget\\packages\\skiasharp.views.forms\\2.80.2\\skiasharp.views.forms.2.80.2.nupkg.sha512",
     "C:\\Users\\Karsten\\.nuget\\packages\\splat\\9.6.1\\splat.9.6.1.nupkg.sha512",
     "C:\\Users\\Karsten\\.nuget\\packages\\sqlite-net-pcl\\1.7.335\\sqlite-net-pcl.1.7.335.nupkg.sha512",
     "C:\\Users\\Karsten\\.nuget\\packages\\sqlitepclraw.bundle_green\\2.0.3\\sqlitepclraw.bundle_green.2.0.3.nupkg.sha512",

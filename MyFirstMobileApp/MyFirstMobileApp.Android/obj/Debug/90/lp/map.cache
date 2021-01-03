@@ -2,6 +2,9 @@ FormsViewGroup
 MyFirstMobileApp
 ReactiveUI
 Rg.Plugins.Popup
+SkiaSharp
+SkiaSharp.Views.Android
+SkiaSharp.Views.Forms
 SQLitePCLRaw.lib.e_sqlite3.android
 Xamarin.Android.Arch.Core.Common
 Xamarin.Android.Arch.Core.Runtime

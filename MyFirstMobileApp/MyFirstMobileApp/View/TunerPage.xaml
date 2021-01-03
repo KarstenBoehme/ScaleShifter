@@ -3,6 +3,7 @@
 	x:Class="MyFirstMobileApp.TunerPage"
 	xmlns="http://xamarin.com/schemas/2014/forms"
 	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:controls="clr-namespace:MyFirstMobileApp"
 	xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup">
 
 	<StackLayout
@@ -17,20 +18,32 @@
 				<Label Style="{StaticResource HeaderLabelStyle}" Text="Tuner" />
 
 				<Label
-					Padding="15"
+					Padding="5"
 					FontSize="Large"
 					HorizontalOptions="Center"
 					Text="{Binding Note.Value}" />
 
 				<Label
-					Padding="15"
+					Padding="5"
 					FontSize="Large"
 					HorizontalOptions="Center"
 					Text="{Binding Frequency.Value}" />
 
+				<!--<controls:Gauge
+					
+					x:Name="GaugeControl"
+					EndValue="{Binding MaxFrequency.Value}"
+					HeightRequest="100"
+					NeedleColor="Brown"
+					StartValue="{Binding MinFrequency.Value}"
+					UnitsText="t"
+					ValueFontSize="5"
+					VerticalOptions="FillAndExpand"
+					WidthRequest="300"
+					Value="{Binding Frequency.Value}" />-->
+				
 				<Label
-					Padding="15"
-					FontSize="Large"
+					Padding="5"
 					HorizontalOptions="Center"
 					Text="{Binding Buffer.Value}" />
 

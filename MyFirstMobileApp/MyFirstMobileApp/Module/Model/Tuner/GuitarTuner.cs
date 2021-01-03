@@ -1,5 +1,7 @@
 ﻿using Android.Media;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reactive.Subjects;
 
 namespace MyFirstMobileApp.Module.Tuner
@@ -7,11 +9,9 @@ namespace MyFirstMobileApp.Module.Tuner
 	public class GuitarTuner
 	{
 		private AudioRecord audRecorder;
-		private readonly double MinFreq = 40;		//E1
-		private readonly double MaxFreq = 1760;		//A6
+		private readonly double MinFreq = 40;       //E1
+		private readonly double MaxFreq = 1760;     //A6
 		private readonly int SampleRate = 44100;
-		private readonly double Threshold = 0.009;
-		private short[] audioBuffer = new short[10000];
 
 		public BehaviorSubject<double> Frequency { get; set; }
 		public BehaviorSubject<double> Buffer { get; set; }
@@ -24,20 +24,33 @@ namespace MyFirstMobileApp.Module.Tuner
 
 		public void RecordAudio()
 		{
-			audRecorder = new AudioRecord(AudioSource.Mic, SampleRate, ChannelIn.Mono, Encoding.Pcm16bit, audioBuffer.Length);
-			audRecorder.StartRecording();
-
-			while (true)
+			try
 			{
-				try
+				int minBufferSize = AudioRecord.GetMinBufferSize(SampleRate, ChannelIn.Mono, Encoding.Pcm16bit);
+				short[] audioBuffer = new short[minBufferSize];
+
+				audRecorder = new AudioRecord(AudioSource.VoiceRecognition, SampleRate, ChannelIn.Mono, Encoding.Pcm16bit, audioBuffer.Length);
+				audRecorder.StartRecording();
+
+				while (true)
 				{
 					audRecorder.Read(audioBuffer, 0, audioBuffer.Length);
-					double[] _audioBuffer = ShortToDouble(audioBuffer);
-					bool isSignal = IsSignal(_audioBuffer);
+					
+					int threshold = Frequency.Value > 150 ? 20 :
+									Frequency.Value > 250 ? 20 : 
+									30;
 
-					if(isSignal)
+					int averageWidth = Frequency.Value > 150 ? 50 :
+										Frequency.Value > 250 ? 10 :
+										100;
+
+					double[] _audioBufferAveraged = RollingAverage(ShortToDouble(audioBuffer), averageWidth).ToArray();
+
+					bool isSignal = IsSignal(_audioBufferAveraged, threshold);
+
+					if (isSignal)
 					{
-						double freq = FrequencyUtils.FindFundamentalFrequency(_audioBuffer, SampleRate, MinFreq, MaxFreq);
+						double freq = FrequencyUtils.FindFundamentalFrequency(_audioBufferAveraged, SampleRate, MinFreq, MaxFreq);
 						Frequency.OnNext(Math.Round(freq, 2));
 					}
 					else
@@ -45,39 +58,68 @@ namespace MyFirstMobileApp.Module.Tuner
 						Frequency.OnNext(0);
 					}
 				}
-				catch
-				{
-					//TODO implement logger
-				}
+			}
+			catch
+			{
+				//TODO implement logger
 			}
 		}
 
 		public void StopRecording()
 		{
 			if (audRecorder != null)
+			{
+				audRecorder.Stop();
 				audRecorder.Release();
+			}
+
 		}
 		private double[] ShortToDouble(short[] shorts)
 		{
 			double[] _audioBuffer = new double[shorts.Length];
 			for (int i = 0; i < _audioBuffer.Length; i++)
 			{
-				_audioBuffer[i] = shorts[i] / 32768.0;
+				_audioBuffer[i] = shorts[i];
 			}
 			return _audioBuffer;
 		}
 
-		private bool IsSignal(double[] buffer)
+		private bool IsSignal(double[] buffer, int threshold)
 		{
 			for (int index = 0; index < buffer.Length; index++)
 			{
 				Buffer.OnNext(buffer[index]);
-				if (Math.Abs(buffer[index]) > Threshold)
+
+				if (Math.Abs(buffer[index]) > threshold)
 				{
 					return true;
 				}
 			}
-			return false; //not signal
+			return false;
+		}
+
+		private double[] RollingAverageLinq(double[] buffer, int width)
+		{
+			return Enumerable.Range(0, 1 + buffer.Length - width)
+										.Select(i => buffer.Skip(i).Take(width).Average())
+										.ToArray();
+		}
+
+		private IEnumerable<double> RollingAverage(double[] buffer, int length)
+		{
+			var queue = new Queue<double>(length);
+			double sum = 0;
+			foreach (int i in buffer)
+			{
+				if (queue.Count == length)
+				{
+					yield return sum / length;
+					sum -= queue.Dequeue();
+				}
+				sum += i;
+				queue.Enqueue(i);
+			}
+			yield return sum / length;
 		}
 	}
 }

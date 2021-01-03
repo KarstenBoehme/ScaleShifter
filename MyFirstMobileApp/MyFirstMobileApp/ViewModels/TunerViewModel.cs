@@ -19,6 +19,9 @@ namespace MyFirstMobileApp.ViewModels
 
 		public ReactiveProperty<string> Note { get; }
 		public ReactiveProperty<string> Frequency { get; }
+
+		//public ReactiveProperty<double> MinFrequency { get; }
+		//public ReactiveProperty<double> MaxFrequency { get; }
 		public ReactiveProperty<double> Buffer { get; }
 
 		public TunerViewModel(Model model)
@@ -42,9 +45,12 @@ namespace MyFirstMobileApp.ViewModels
 			Note = new ReactiveProperty<string>("-");
 			Frequency = new ReactiveProperty<string>("Hz");
 
-			GuitarTuner.Frequency.Subscribe(freq =>
+			//MinFrequency = new ReactiveProperty<double>(0);
+			//MaxFrequency = new ReactiveProperty<double>(0);
+
+			GuitarTuner.Frequency.Throttle(TimeSpan.FromMilliseconds(50)).Subscribe(freq =>
 			{
-				this.Frequency.Value = $"{freq} Hz";
+				this.Frequency.Value = freq.ToString("0.00") + " Hz";
 
 				if (freq == 0)
 				{
@@ -52,13 +58,15 @@ namespace MyFirstMobileApp.ViewModels
 				}
 				else
 				{
-					string note = ModelSubject.Value.DataBaseHandler.FrequencyCollection.Single(f => f.IsWithinPlusMinus50Cent(freq)).Note;
-					this.Note.Value = Keys.ListOfKeys.Single(k => k.ToString().Equals(note)).GetKeyDiscription();
+					Freq _freq = ModelSubject.Value.DataBaseHandler.FrequencyCollection.Single(f => f.IsWithinPlusMinus50Cent(freq));
+					this.Note.Value = $"{Keys.ListOfKeys.Single(k => k.ToString().Equals(_freq.Note)).GetKeyDiscription()} ({_freq.Frequency} Hz)";
 				}
 			});
 
+#if DEBUG
 			Buffer = new ReactiveProperty<double>(0);
 			GuitarTuner.Buffer.Throttle(TimeSpan.FromMilliseconds(100)).Subscribe(b => Buffer.Value = Math.Round(b, 5));
+#endif
 		}
 	}
 }

@@ -16,37 +16,31 @@
 			CornerRadius="10">
 			<StackLayout BackgroundColor="White">
 				<Label Style="{StaticResource HeaderLabelStyle}" Text="Tuner" />
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="*" />
+						<RowDefinition Height="*" />
+						<RowDefinition Height="2.5*" />
+					</Grid.RowDefinitions>
+					<Label
+						Grid.Row="0"
+						Padding="5"
+						FontSize="Large"
+						HorizontalOptions="Center"
+						Text="{Binding Note.Value}" />
 
-				<Label
-					Padding="5"
-					FontSize="Large"
-					HorizontalOptions="Center"
-					Text="{Binding Note.Value}" />
+					<Label
+						Grid.Row="1"
+						Padding="5"
+						FontSize="Small"
+						HorizontalOptions="Center"
+						Text="{Binding Frequency.Value}" />
 
-				<Label
-					Padding="5"
-					FontSize="Large"
-					HorizontalOptions="Center"
-					Text="{Binding Frequency.Value}" />
-
-				<!--<controls:Gauge
-					
-					x:Name="GaugeControl"
-					EndValue="{Binding MaxFrequency.Value}"
-					HeightRequest="100"
-					NeedleColor="Brown"
-					StartValue="{Binding MinFrequency.Value}"
-					UnitsText="t"
-					ValueFontSize="5"
-					VerticalOptions="FillAndExpand"
-					WidthRequest="300"
-					Value="{Binding Frequency.Value}" />-->
-				
-				<Label
-					Padding="5"
-					HorizontalOptions="Center"
-					Text="{Binding Buffer.Value}" />
-
+					<controls:TunerGauge
+						Grid.Row="2"
+						Frequency="{Binding RecordedFrequency.Value}"
+						SetFrequency="{Binding SetFrequency.Value}" />
+				</Grid>
 				<Button Clicked="OnClose" Text="Close" />
 			</StackLayout>
 		</Frame>

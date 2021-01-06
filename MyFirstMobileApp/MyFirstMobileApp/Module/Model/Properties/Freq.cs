@@ -29,7 +29,7 @@ namespace MyFirstMobileApp.Module.Properties
 
 		public bool IsWithinPlusMinus50Cent(double value)
 		{
-			return value > MinFrequency && value <= MaxFrequency;
+			return value > MinFrequency && value < MaxFrequency;
 		}
 	}
 }

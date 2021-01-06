@@ -12,7 +12,8 @@ namespace MyFirstMobileApp.Module.Tuner
 		private readonly double MinFreq = 40;       //E1
 		private readonly double MaxFreq = 1760;     //A6
 		private readonly int SampleRate = 44100;
-
+		private readonly int MinThreshold = 100;
+		private readonly int MaxThreshold = 5600;
 		public BehaviorSubject<double> Frequency { get; set; }
 		public BehaviorSubject<double> Buffer { get; set; }
 
@@ -35,22 +36,16 @@ namespace MyFirstMobileApp.Module.Tuner
 				while (true)
 				{
 					audRecorder.Read(audioBuffer, 0, audioBuffer.Length);
-					
-					int threshold = Frequency.Value > 150 ? 20 :
-									Frequency.Value > 250 ? 20 : 
-									30;
 
-					int averageWidth = Frequency.Value > 150 ? 50 :
-										Frequency.Value > 250 ? 10 :
-										100;
+					//int threshold = Frequency.Value > 150 ? 80 :
+					//				Frequency.Value > 250 ? 60 : 100;
 
-					double[] _audioBufferAveraged = RollingAverage(ShortToDouble(audioBuffer), averageWidth).ToArray();
+					double[] _audioBuffer = ShortToDouble(audioBuffer);
+					bool isAudible = IsAudible(_audioBuffer, MinThreshold, MaxThreshold);
 
-					bool isSignal = IsSignal(_audioBufferAveraged, threshold);
-
-					if (isSignal)
+					if (isAudible)
 					{
-						double freq = FrequencyUtils.FindFundamentalFrequency(_audioBufferAveraged, SampleRate, MinFreq, MaxFreq);
+						double freq = FrequencyUtils.FindFundamentalFrequency(_audioBuffer, SampleRate, MinFreq, MaxFreq);
 						Frequency.OnNext(Math.Round(freq, 2));
 					}
 					else
@@ -84,42 +79,21 @@ namespace MyFirstMobileApp.Module.Tuner
 			return _audioBuffer;
 		}
 
-		private bool IsSignal(double[] buffer, int threshold)
+		private bool IsAudible(double[] data, int minThreshold, int maxThreshold)
 		{
-			for (int index = 0; index < buffer.Length; index++)
-			{
-				Buffer.OnNext(buffer[index]);
-
-				if (Math.Abs(buffer[index]) > threshold)
-				{
-					return true;
-				}
-			}
-			return false;
+			double rms = GetRootMeanSquared(data);
+			return (rms > minThreshold && maxThreshold > rms);
 		}
 
-		private double[] RollingAverageLinq(double[] buffer, int width)
+		private double GetRootMeanSquared(double[] data)
 		{
-			return Enumerable.Range(0, 1 + buffer.Length - width)
-										.Select(i => buffer.Skip(i).Take(width).Average())
-										.ToArray();
-		}
-
-		private IEnumerable<double> RollingAverage(double[] buffer, int length)
-		{
-			var queue = new Queue<double>(length);
-			double sum = 0;
-			foreach (int i in buffer)
+			double ms = 0;
+			for (int i = 0; i < data.Length; i++)
 			{
-				if (queue.Count == length)
-				{
-					yield return sum / length;
-					sum -= queue.Dequeue();
-				}
-				sum += i;
-				queue.Enqueue(i);
+				ms += data[i] * data[i];
 			}
-			yield return sum / length;
+			ms /= data.Length;
+			return Math.Sqrt(ms);
 		}
 	}
 }

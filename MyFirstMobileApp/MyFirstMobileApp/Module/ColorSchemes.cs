@@ -19,5 +19,11 @@ namespace MyFirstMobileApp.Module
 		public readonly static string Border4thOctave = "005a8a";
 		public readonly static string Border5thOctave = "443500";
 		public readonly static string Border6thOctave = "585858";
+
+		public readonly static string TunerZero = "009b77";
+		public readonly static string Tuner10ct = "efc050";
+		public readonly static string Tuner20ct = "e15d44";
+		public readonly static string Tuner30ct = "dd4124";
+		public readonly static string Tuner40ct = "9b2335";
 	}
 }

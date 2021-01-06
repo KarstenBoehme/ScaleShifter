@@ -2,6 +2,7 @@
 using MyFirstMobileApp.Module.Properties;
 using System;
 using System.Collections.Generic;
+using Xamarin.Forms;
 using System.Linq;
 
 namespace MyFirstMobileApp.Module
@@ -74,6 +75,28 @@ namespace MyFirstMobileApp.Module
 				default:
 					throw new ArgumentException($"unhandled enum: {nameof(Key)}");
 			}
+		}
+
+		public static IEnumerable<Color> GetGradientedRedGreen(int steps)
+		{
+			double rMax = Color.Green.R;
+			double rMin = Color.Red.R;
+
+			double gMax = Color.Green.G;
+			double gMin = Color.Red.G;
+
+			var colorList = new List<Color>();
+
+			for (int i = 0; i < steps; i++)
+			{
+				var rAverage = rMin + (int)((rMax - rMin) * i / steps);
+				var gAverage = gMin + (int)((gMax - gMin) * i / steps);
+				var bAverage = 0;
+				
+				colorList.Add(Color.FromRgb(rAverage, gAverage, bAverage));
+			}
+
+			return colorList;
 		}
 	}
 }

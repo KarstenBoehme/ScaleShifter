@@ -128,10 +128,6 @@
               "target": "Package",
               "version": "[2.80.2, )"
             },
-            "SkiaSharp.Views": {
-              "target": "Package",
-              "version": "[2.80.2, )"
-            },
             "SkiaSharp.Views.Forms": {
               "target": "Package",
               "version": "[2.80.2, )"

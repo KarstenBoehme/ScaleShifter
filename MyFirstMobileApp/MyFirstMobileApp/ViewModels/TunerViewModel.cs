@@ -47,7 +47,7 @@ namespace MyFirstMobileApp.ViewModels
 			RecordedFrequency = new ReactiveProperty<double>();
 			SetFrequency = new ReactiveProperty<double>();
 
-			GuitarTuner.Frequency.Throttle(TimeSpan.FromMilliseconds(25)).Subscribe(freq =>
+			GuitarTuner.Frequency.Subscribe(freq =>
 			{
 				this.RecordedFrequency.Value = freq;
 				this.Frequency.Value = freq.ToString("0.00") + " Hz";

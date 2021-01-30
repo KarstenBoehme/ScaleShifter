@@ -25,3 +25,4 @@ tmp/
 # Brunch output folder.
 bin/
 obj/
+*.iOS/

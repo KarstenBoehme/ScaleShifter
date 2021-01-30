@@ -24,7 +24,7 @@
 				<Label Style="{StaticResource HeaderLabelStyle}" Text="{Binding CurrentKey.Value}" />
 				<ListView
 					x:Name="keyListView"
-					ItemsSource="{Binding KeyCollection}"
+					ItemsSource="{Binding KeyCollection.Value}"
 					SelectedItem="{Binding SelectedKey.Value, Mode=TwoWay}">
 					<ListView.ItemTemplate>
 						<DataTemplate>

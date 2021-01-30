@@ -13,8 +13,8 @@
 		<Grid>
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="Auto" />
-				<ColumnDefinition Width="Auto" />
 				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="Auto" />
 				<ColumnDefinition Width="Auto" />
 			</Grid.ColumnDefinitions>
 
@@ -30,20 +30,20 @@
 				HeightRequest="40"
 				Text="s"
 				WidthRequest="40" />
-			<Button
+			<Label
 				Grid.Row="0"
 				Grid.Column="1"
+				Padding="0"
+				FontSize="Body"
+				Text="{Binding GeneralSettings.Value}" />
+			<Button
+				Grid.Row="0"
+				Grid.Column="2"
 				Clicked="OnOpenTuner"
 				CornerRadius="10"
 				HeightRequest="40"
 				Text="t"
 				WidthRequest="40" />
-			<Label
-				Grid.Row="0"
-				Grid.Column="2"
-				Padding="0"
-				FontSize="Body"
-				Text="{Binding GeneralSettings.Value}" />
 			<Button
 				Grid.Row="0"
 				Grid.Column="3"

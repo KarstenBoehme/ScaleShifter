@@ -47,6 +47,8 @@ namespace MyFirstMobileApp.Module
             UpdateFretboardUIGrid();
             FretBoardGrid.UpdateCapo();
             FretBoardGrid.UpdateFretbordOrientation();
+
+            ModelSubject.OnNext(this);
         }
     }
 }

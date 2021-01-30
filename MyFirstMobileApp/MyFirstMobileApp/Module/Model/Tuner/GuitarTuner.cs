@@ -28,7 +28,7 @@ namespace MyFirstMobileApp.Module.Tuner
 			try
 			{
 				int minBufferSize = AudioRecord.GetMinBufferSize(SampleRate, ChannelIn.Mono, Encoding.Pcm16bit);
-				short[] audioBuffer = new short[minBufferSize];
+				short[] audioBuffer = new short[3 * minBufferSize];
 
 				audRecorder = new AudioRecord(AudioSource.VoiceRecognition, SampleRate, ChannelIn.Mono, Encoding.Pcm16bit, audioBuffer.Length);
 				audRecorder.StartRecording();
@@ -36,9 +36,6 @@ namespace MyFirstMobileApp.Module.Tuner
 				while (true)
 				{
 					audRecorder.Read(audioBuffer, 0, audioBuffer.Length);
-
-					//int threshold = Frequency.Value > 150 ? 80 :
-					//				Frequency.Value > 250 ? 60 : 100;
 
 					double[] _audioBuffer = ShortToDouble(audioBuffer);
 					bool isAudible = IsAudible(_audioBuffer, MinThreshold, MaxThreshold);
@@ -56,7 +53,7 @@ namespace MyFirstMobileApp.Module.Tuner
 			}
 			catch
 			{
-				//TODO implement logger
+				throw new ArgumentException("FFT crashed");
 			}
 		}
 

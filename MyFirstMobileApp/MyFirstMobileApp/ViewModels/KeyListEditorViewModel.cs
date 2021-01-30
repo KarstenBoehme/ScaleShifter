@@ -15,13 +15,7 @@ namespace MyFirstMobileApp.ViewModels
 		public ReactiveProperty<Key> SelectedKey { get; }
 		public ReactiveProperty<string> CurrentKey { get; }
 		public ReactiveCommand SelectKeyCommand { get; }
-		public List<Key> KeyCollection
-		{
-			get
-			{
-				return Keys.ListOfKeys;
-			}
-		}
+		public ReactiveProperty<List<Key>> KeyCollection { get; }
 
 		public KeyListEditorViewModel(Model model)
 		{
@@ -39,8 +33,14 @@ namespace MyFirstMobileApp.ViewModels
 				});
 
 			CurrentKey = new ReactiveProperty<string>();
-			ModelSubject.Subscribe(m => CurrentKey.Value =
-				"Current Key: " + m.FretBoard.Key.GetKeyDiscription());
+			KeyCollection = new ReactiveProperty<List<Key>>();
+
+			ModelSubject.Subscribe(m => 
+			{
+				//in order to trigger new key description when settings change
+				KeyCollection.Value = Keys.ListOfKeys;
+				CurrentKey.Value = "Current Key: " + m.FretBoard.Key.GetKeyDiscription();
+			});
 		}
 	}
 }

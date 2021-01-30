@@ -48,7 +48,13 @@ namespace MyFirstMobileApp.ViewModels
 			});
 
 			ConfirmCommand
-				.WithLatestFrom(Observable.CombineLatest(CapoPosition, DisplayingSettings, SemiSteps, FretboardOrientation, (capo, display, semi, orient) => (capo, display, semi, orient)), (_, t) => t)
+				.WithLatestFrom(Observable.CombineLatest(
+					CapoPosition, 
+					DisplayingSettings, 
+					SemiSteps, 
+					FretboardOrientation, 
+					(capo, display, semi, orient) => 
+						(capo, display, semi, orient)), (_, t) => t)
 				.Subscribe(tuple =>
 			{
 				ModelSubject.Value.FretBoard.CapoPosition = tuple.capo;

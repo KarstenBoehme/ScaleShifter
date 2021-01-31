@@ -81,6 +81,7 @@ namespace MyFirstMobileApp.Module.Fretboard
 			foreach (GuitarString stringKey in FretBoardLayout.Keys)
 			{
 				Key newTuningKey = tuning.ToDict()[stringKey];
+				UpdateOctaves(stringKey);
 
 				while (FretBoardLayout[stringKey][0].Key != newTuningKey)
 				{

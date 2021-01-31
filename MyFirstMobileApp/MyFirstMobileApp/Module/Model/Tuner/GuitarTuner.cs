@@ -12,7 +12,7 @@ namespace MyFirstMobileApp.Module.Tuner
 		private readonly double MinFreq = 40;       //E1
 		private readonly double MaxFreq = 1760;     //A6
 		private readonly int SampleRate = 44100;
-		private readonly int MinThreshold = 100;
+		private readonly int MinThreshold = 60;
 		private readonly int MaxThreshold = 5600;
 		public BehaviorSubject<double> Frequency { get; set; }
 		public BehaviorSubject<double> Buffer { get; set; }

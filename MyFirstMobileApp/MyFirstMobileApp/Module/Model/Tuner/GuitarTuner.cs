@@ -63,6 +63,7 @@ namespace MyFirstMobileApp.Module.Tuner
 			{
 				audRecorder.Stop();
 				audRecorder.Release();
+				audRecorder.Dispose();
 			}
 
 		}

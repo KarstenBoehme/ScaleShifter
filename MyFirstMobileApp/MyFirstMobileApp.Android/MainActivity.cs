@@ -4,9 +4,6 @@ using Android.Content.PM;
 using Android.Media;
 using Android.OS;
 using Android.Runtime;
-using Android.Support.Design.Widget;
-using Android.Support.V4.App;
-using Android.Support.V4.Content;
 using Android.Views;
 using Android.Widget;
 using System;
@@ -53,9 +50,9 @@ namespace MyFirstMobileApp.Droid
             const int RequestLocationId = 0;
 
             bool sdk23 = (int)Build.VERSION.SdkInt >= 23;
-            bool permissionDenied = ContextCompat.CheckSelfPermission(this, Manifest.Permission.RecordAudio) == Permission.Denied;
+            //bool permissionDenied = ContextCompat.CheckSelfPermission(this, Manifest.Permission.RecordAudio) == Permission.Denied;
 
-            if (sdk23 && permissionDenied)
+            if (sdk23)
             {
                 //TODO logger
                 RequestPermissions(new string[] { Manifest.Permission.RecordAudio }, RequestLocationId);
